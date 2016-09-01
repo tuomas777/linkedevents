@@ -8,7 +8,7 @@ class DocumentedRouter(DefaultRouter):
     # The following method overrides the DefaultRouter method with the
     # only difference being the view class name and docstring, which
     # are shown on the API front page.
-    def get_api_root_view(self):
+    def get_api_root_view(self, api_urls=None):
         """
         Return a view to use as the API root.
         """

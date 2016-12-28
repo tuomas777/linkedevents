@@ -119,6 +119,102 @@ def perform_id_magic_for(data):
     return data
 
 
+def get_search_queryset(request, models=None):
+    languages = [x[0] for x in settings.LANGUAGES]
+
+    # If the incoming language is not specified, go with the default.
+    lang_code = request.query_params.get('language', languages[0])
+    if lang_code not in languages:
+        raise ParseError("Invalid language supplied. Supported languages: %s" %
+                         ','.join(languages))
+
+    params = request.query_params
+
+    input_val = params.get('input', '').strip()
+    q_val = params.get('q', '').strip()
+    if not input_val and not q_val:
+        raise ParseError("Supply search terms with 'q=' or autocomplete entry with 'input='")
+    if input_val and q_val:
+        raise ParseError("Supply either 'q' or 'input', not both")
+
+    with translation.override(lang_code):
+
+        queryset = SearchQuerySet()
+        if input_val:
+            queryset = queryset.filter(autosuggest=input_val)
+        else:
+            queryset = queryset.filter(text=AutoQuery(q_val))
+
+        if not models:
+            types = params.get('type', '').split(',')
+            if types:
+                models = set()
+                for t in types:
+                    if t == 'event':
+                        models.add(Event)
+                    elif t == 'place':
+                        models.add(Place)
+
+        if request.version == 'v0.1':
+            if len(models) == 0:
+                models.add(Event)
+
+        if len(models) == 1 and Event in models:
+            start = params.get('start', None)
+            if start:
+                dt = parse_time(start, is_start=True)
+                queryset = queryset.filter(Q(end_time__gt=dt) | Q(start_time__gte=dt))
+
+            end = params.get('end', None)
+            if end:
+                dt = parse_time(end, is_start=False)
+                queryset = queryset.filter(Q(end_time__lt=dt) | Q(start_time__lte=dt))
+
+            if not start and not end and hasattr(queryset.query, 'add_decay_function'):
+                # If no time-based filters are set, make the relevancy score
+                # decay the further in the future the event is.
+                now = datetime.utcnow()
+                queryset = queryset.filter(end_time__gt=now).decay({
+                    'gauss': {
+                        'end_time': {
+                            'origin': now,
+                            'scale': DATE_DECAY_SCALE
+                        }
+                    }
+                })
+            queryset.model = Event
+
+        if len(models) > 0:
+            queryset = queryset.models(*list(models))
+
+        return queryset.load_all()
+
+
+class SearchableModelViewSetMixin(object):
+    def list(self, request, *args, **kwargs):
+        params = self.request.query_params
+
+        if 'q' not in params and 'input' not in params:
+            return super().list(request, *args, **kwargs)
+
+        queryset = self.filter_queryset(self.get_queryset())
+        search_results = get_search_queryset(self.request, models=(queryset.model,))
+
+        if params.get('sort') == 'score':
+            queryset_ids = set(queryset.values_list('id', flat=True))
+            results = [result.object for result in search_results if result.object.id in queryset_ids]
+        else:
+            results = queryset.filter(id__in=[result.object.id for result in search_results])
+
+        page = self.paginate_queryset(results)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(results, many=True)
+        return Response(serializer.data)
+
+
 class JSONLDRelatedField(relations.HyperlinkedRelatedField):
     """
     Support of showing and saving of expanded JSON nesting or just a resource
@@ -671,7 +767,8 @@ class PlaceRetrieveViewSet(GeoModelAPIView,
         return context
 
 
-class PlaceListViewSet(GeoModelAPIView,
+class PlaceListViewSet(SearchableModelViewSetMixin,
+                       GeoModelAPIView,
                        viewsets.GenericViewSet,
                        mixins.ListModelMixin):
     queryset = Place.objects.all()
@@ -1324,7 +1421,7 @@ class EventFilter(filters.FilterSet):
         return queryset.filter(super_event_type=value)
 
 
-class EventViewSet(BulkModelViewSet, JSONAPIViewSet):
+class EventViewSet(SearchableModelViewSetMixin, BulkModelViewSet, JSONAPIViewSet):
     """
     # Filtering retrieved events
 
@@ -1450,7 +1547,6 @@ class EventViewSet(BulkModelViewSet, JSONAPIViewSet):
     def allow_bulk_destroy(self, qs, filtered):
         return False
 
-
 register_view(EventViewSet, 'event')
 
 
@@ -1484,86 +1580,16 @@ class SearchViewSet(GeoModelAPIView, viewsets.ViewSetMixin, generics.ListAPIView
         return SearchSerializer
 
     def list(self, request, *args, **kwargs):
-        languages = [x[0] for x in settings.LANGUAGES]
+        object_list = get_search_queryset(request)
 
-        # If the incoming language is not specified, go with the default.
-        self.lang_code = request.query_params.get('language', languages[0])
-        if self.lang_code not in languages:
-            raise ParseError("Invalid language supplied. Supported languages: %s" %
-                             ','.join(languages))
-
-        params = request.query_params
-
-        input_val = params.get('input', '').strip()
-        q_val = params.get('q', '').strip()
-        if not input_val and not q_val:
-            raise ParseError("Supply search terms with 'q=' or autocomplete entry with 'input='")
-        if input_val and q_val:
-            raise ParseError("Supply either 'q' or 'input', not both")
-
-        old_language = translation.get_language()[:2]
-        translation.activate(self.lang_code)
-
-        queryset = SearchQuerySet()
-        if input_val:
-            queryset = queryset.filter(autosuggest=input_val)
-        else:
-            queryset = queryset.filter(text=AutoQuery(q_val))
-
-        models = None
-        types = params.get('type', '').split(',')
-        if types:
-            models = set()
-            for t in types:
-                if t == 'event':
-                    models.add(Event)
-                elif t == 'place':
-                    models.add(Place)
-
-        if self.request.version == 'v0.1':
-            if len(models) == 0:
-                models.add(Event)
-
-        if len(models) == 1 and Event in models:
-            start = params.get('start', None)
-            if start:
-                dt = parse_time(start, is_start=True)
-                queryset = queryset.filter(Q(end_time__gt=dt) | Q(start_time__gte=dt))
-
-            end = params.get('end', None)
-            if end:
-                dt = parse_time(end, is_start=False)
-                queryset = queryset.filter(Q(end_time__lt=dt) | Q(start_time__lte=dt))
-
-            if not start and not end and hasattr(queryset.query, 'add_decay_function'):
-                # If no time-based filters are set, make the relevancy score
-                # decay the further in the future the event is.
-                now = datetime.utcnow()
-                queryset = queryset.filter(end_time__gt=now).decay({
-                    'gauss': {
-                        'end_time': {
-                            'origin': now,
-                            'scale': DATE_DECAY_SCALE
-                        }
-                    }
-                })
-
-        if len(models) > 0:
-            queryset = queryset.models(*list(models))
-
-        self.object_list = queryset.load_all()
-
-        page = self.paginate_queryset(self.object_list)
+        page = self.paginate_queryset(object_list)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             resp = self.get_paginated_response(serializer.data)
-            translation.activate(old_language)
             return resp
 
         serializer = self.get_serializer(self.object_list, many=True)
         resp = Response(serializer.data)
-
-        translation.activate(old_language)
 
         return resp
 

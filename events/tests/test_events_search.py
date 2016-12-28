@@ -34,7 +34,8 @@ class EventSearchTests(TestCase, TestDataMixin):
         haystack.connections.reload('default-sv')
 
         # create a dummy event
-        self.dummy = Event(name='dummy event',
+        self.dummy = Event(id='dummy_event',
+                           name='dummy event',
                            data_source=self.test_ds,
                            publisher=self.test_org,
                            start_time=datetime.datetime.now(),
@@ -65,6 +66,42 @@ class EventSearchTests(TestCase, TestDataMixin):
         response = self._get_response('ASearchQueryThatShouldntReturnMatches')
         self.assertEquals(response.status_code, 200, msg=response.content)
         self.assertTrue(response.data['meta']['count'] == 0)
+
+    def test__event_endpoint_search(self):
+        # another event that should not be returned
+        Event.objects.create(
+            id='another',
+            name='another',
+            data_source=self.test_ds,
+            publisher=self.test_org,
+            start_time=datetime.datetime.now(),
+            end_time=datetime.datetime.now(),
+        )
+
+        query = self.dummy.name.split()[0]
+
+        # normal query
+        response = self.client.get('/v1/event/', {'q': query}, format='json')
+        self.assertEquals(response.status_code, 200, msg=response.content)
+        self.assertEqual(response.data['meta']['count'], 1)
+        self.assertEqual(response.data['data'][0]['id'], self.dummy.id)
+
+        # autocomplete
+        response = self.client.get('/v1/event/', {'input': query}, format='json')
+        self.assertEquals(response.status_code, 200, msg=response.content)
+        self.assertEqual(response.data['meta']['count'], 1)
+        self.assertEqual(response.data['data'][0]['id'], self.dummy.id)
+
+        # filter existing value
+        response = self.client.get('/v1/event/', {'q': query, 'data_source': self.test_ds.name}, format='json')
+        self.assertEquals(response.status_code, 200, msg=response.content)
+        self.assertEqual(response.data['meta']['count'], 1)
+        self.assertEqual(response.data['data'][0]['id'], self.dummy.id)
+
+        # filter non existing value
+        response = self.client.get('/v1/event/', {'q': query, 'data_source': 'bogus_ds'}, format='json')
+        self.assertEquals(response.status_code, 200, msg=response.content)
+        self.assertEqual(response.data['meta']['count'], 0)
 
     def tearDown(self):
         # delete dummy

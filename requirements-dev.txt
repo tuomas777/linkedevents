@@ -158,6 +158,8 @@ rsa==4.9
     # via
     #   -c requirements.txt
     #   python-jose
+ruff==0.7.0
+    # via -r requirements-dev.in
 six==1.16.0
     # via
     #   -c requirements.txt
@@ -170,7 +172,7 @@ sqlparse==0.5.1
     #   -c requirements.txt
     #   django
     #   django-debug-toolbar
-tomli==2.0.1
+tomli==2.0.2
     # via
     #   black
     #   build

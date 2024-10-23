@@ -11,5 +11,4 @@ select = [
     # isort
     "I"
 ]
-extend-per-file-ignores = { "*migrations*" = ["E501"] }
-pycodestyle.max-line-length = 120
+extend-per-file-ignores = { "*/migrations/*" = ["E501"], "*/tests/*" = ["E501"] }

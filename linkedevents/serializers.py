@@ -179,7 +179,8 @@ class LinkedEventsSerializer(TranslatedModelSerializer, MPTTModelSerializer):
         if "request" in context:
             self.request = context["request"]
 
-        # for post and put methods as well as field visibility, user information is needed
+        # for post and put methods as well as field visibility, user information
+        # is needed
         if "user" in context:
             self.user = context["user"]
         if "admin_tree_ids" in context:
@@ -257,7 +258,8 @@ class LinkedEventsSerializer(TranslatedModelSerializer, MPTTModelSerializer):
         # Display non-public fields if
         # 1) obj has publisher org, and
         # 2) user belongs to the same org tree.
-        # Never modify self.skip_fields, as it survives multiple calls in the serializer across objects.
+        # Never modify self.skip_fields, as it survives multiple calls in the
+        # serializer across objects.
         obj_skip_fields = set(self.skip_fields)
         if not self.are_only_admin_visible_fields_allowed(obj):
             obj_skip_fields |= set(self.only_admin_visible_fields)
@@ -306,7 +308,8 @@ class LinkedEventsSerializer(TranslatedModelSerializer, MPTTModelSerializer):
         if value and self.context["request"].method == "POST":
             id_data_source_prefix = value.split(":", 1)[0]
             if id_data_source_prefix != data_source.id:
-                # if we are creating, there's no excuse to have any other data source than the request gave
+                # if we are creating, there's no excuse to have any other data source
+                # than the request gave
                 raise serializers.ValidationError(
                     _(
                         "Setting id to %(given)s "
@@ -382,7 +385,8 @@ class LinkedEventsSerializer(TranslatedModelSerializer, MPTTModelSerializer):
             name_exists = False
             languages = [x[0] for x in settings.LANGUAGES]
             for language in languages:
-                # null or empty strings are not allowed, they are the same as missing name!
+                # null or empty strings are not allowed, they are the same as missing
+                # name!
                 name_lang_key = "name_%s" % language
                 if (
                     data.get(name_lang_key)

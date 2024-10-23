@@ -28,7 +28,8 @@ class KeywordMatcher(object):
             query = SearchQuery(text, config=used_langs[language], search_type="plain")
             kwargs = {f"search_vector_{language}": query}
 
-            # find matches via search vector and choose the best one according to trgrm similarity
+            # find matches via search vector and choose the best one according to
+            # trgrm similarity
             label = (
                 KeywordLabel.objects.filter(**kwargs)
                 .annotate(similarity=TrigramSimilarity("name", text))
@@ -37,11 +38,13 @@ class KeywordMatcher(object):
             )  # noqa E124
             # storing the result in a dictionary of the following structure {similarity: label}
             # in the edge case when similarity is the same for two different languages the label will be
-            # overwritten, which is not big deal as we don't have a way to select between the two anyway.
+            # overwritten, which is not big deal as we don't have a way to select
+            # between the two anyway.
             if label:
                 contestants[label.similarity] = label
 
-        # selecting the match with the highest similarity, if there is anything to select
+        # selecting the match with the highest similarity, if there is anything to
+        # select
         if contestants.keys():
             return contestants[max(contestants.keys())]
         else:

@@ -121,7 +121,8 @@ def mark_deleted(obj):
 
 
 def check_deleted(obj):
-    # we don't want to delete past events, so as far as the importer cares, they are considered deleted
+    # we don't want to delete past events, so as far as the importer cares,
+    # they are considered deleted
     if obj.deleted or obj.end_time < datetime.now(pytz.utc):
         return True
     return False
@@ -316,12 +317,14 @@ class LippupisteImporter(Importer):
             candidate_address_sv = place_data["street_address_sv__lower"]
             candidate_postal_code = place_data["postal_code"]
 
-            # If the name matches exactly, the list will not produce better matches, so we can skip the rest
+            # If the name matches exactly, the list will not produce better matches,
+            # so we can skip the rest
             if candidate_place_name and source_place_name == candidate_place_name:
                 self.existing_place_id_matches[source_event["EventVenue"]] = place_id
                 return place_id
 
-            # We might have a partial match instead, check for common and different words
+            # We might have a partial match instead, check for common and different
+            # words
             candidate_place_name_words = set(
                 candidate_place_name.replace(",", " ")
                 .replace("-", " ")
@@ -370,7 +373,8 @@ class LippupisteImporter(Importer):
                 if is_partial_address_match:
                     matches_by_partial_address.append(place_id)
 
-            # If none of the above match, the promoter might be the key and the venue just extra info
+            # If none of the above match, the promoter might be the key and the venue
+            # just extra info
             if candidate_place_name and source_provider_name == candidate_place_name:
                 matches_by_provider_name.append(place_id)
 
@@ -424,7 +428,8 @@ class LippupisteImporter(Importer):
         if matches_by_provider_name:
             logger.info("provider name match:")
             place_id = matches_by_provider_name[0]
-            # provider name was an exact match, so we assume all events in this venue will match
+            # provider name was an exact match, so we assume all events in this venue
+            # will match
             self.existing_place_id_matches[source_event["EventVenue"]] = place_id
             logger.info(Place.objects.get(id=place_id))
             return place_id
@@ -677,7 +682,8 @@ class LippupisteImporter(Importer):
                 # check if the event already exists from another data source
                 for data_source in DATA_SOURCES_TO_CHECK_FOR_DUPLICATES:
                     # the event name must *start* with an existing event name, as lippupiste uses suffixes
-                    # there is no standard django method for filtering startswith this way around
+                    # there is no standard django method for filtering startswith this
+                    # way around
                     event_name = source_event["EventName"].lower()
                     if Event.objects.filter(
                         data_source=data_source,
@@ -701,7 +707,8 @@ class LippupisteImporter(Importer):
 
         self._synch_events(events)
 
-        # Because super events must exist to be linked, do this after synch. We also need to resynch.
+        # Because super events must exist to be linked, do this after synch. We
+        # also need to resynch.
         self._cache_super_event_ids()
         for source_event in event_source_data:
             self._link_event_to_superevent(source_event, events)

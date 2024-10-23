@@ -35,7 +35,8 @@ def delete_user_and_gdpr_data(
     """
 
     if settings.GDPR_DISABLE_API_DELETION:
-        # Delete user is disabled. Returns 403 FORBIDDEN so that the GDPR view handles it correctly.
+        # Delete user is disabled. Returns 403 FORBIDDEN so that the GDPR view
+        # handles it correctly.
         return ErrorResponse(
             [
                 Error(

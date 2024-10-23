@@ -109,10 +109,12 @@ class Command(BaseCommand):
                     status_code = getattr(exc.response, "status_code", None)
 
                     if status_code and status_code == status.HTTP_404_NOT_FOUND:
-                        # No payment found from Talpa => continue payment expiry processing.
+                        # No payment found from Talpa => continue payment expiry
+                        # processing.
                         resp_json = {}
                     else:
-                        # Request failed => log error and skip processing for this payment.
+                        # Request failed => log error and skip processing for this
+                        # payment.
                         logger.error(
                             f"mark_payments_expired: an error occurred while fetching payment "
                             f"from the Talpa API (payment ID: {payment.pk}, order ID: "
@@ -125,7 +127,8 @@ class Command(BaseCommand):
                     # person.
                     self._handle_payment_paid(payment)
                 elif resp_json.get("status") == WebStorePaymentStatus.CANCELLED.value:
-                    # Payment exists and is cancelled => delete our payment and related signup.
+                    # Payment exists and is cancelled => delete our payment and related
+                    # signup.
                     self._handle_payment_cancelled(payment)
                 elif (
                     resp_json.get("status") == WebStorePaymentStatus.CREATED.value
@@ -141,5 +144,6 @@ class Command(BaseCommand):
                     # payment => check again later.
                     pass
                 else:
-                    # Payment is expired => Mark our payment as expired and notify contact person.
+                    # Payment is expired => Mark our payment as expired and notify
+                    # contact person.
                     self._handle_payment_expired(payment, order_api_client)

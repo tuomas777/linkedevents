@@ -220,7 +220,8 @@ class OrganizationEditPermission(BasePermission):
 
         if request.method in ("PUT", "PATCH"):
             if self._is_editing_organization_users(request.data, obj):
-                # User must a superuser to add or remove an existing organization's users.
+                # User must a superuser to add or remove an existing organization's
+                # users.
                 return request.user.is_authenticated and request.user.is_superuser
             elif self._is_editing_web_store_merchants_or_accounts(request.data):
                 # User must be a superuser or a financial admin to edit an existing organization's

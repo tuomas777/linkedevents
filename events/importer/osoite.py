@@ -46,7 +46,8 @@ class OsoiteImporter(Importer):
             self.mark_deleted = self.delete_and_replace
 
     def get_street_address(self, address, language):
-        # returns the address sans municipality in the desired language, or Finnish as fallback
+        # returns the address sans municipality in the desired language, or
+        # Finnish as fallback
         address.street.set_current_language(language)
         street = address.street.name
         s = "%s %s" % (street, address.number)
@@ -72,7 +73,8 @@ class OsoiteImporter(Importer):
     def delete_and_replace(self, obj):
         obj.deleted = True
         obj.save(update_fields=["deleted"])
-        # we won't stand idly by and watch kymp delete used addresses willy-nilly without raising a ruckus!
+        # we won't stand idly by and watch kymp delete used addresses willy-nilly
+        # without raising a ruckus!
         if obj.events.count() > 0:
             # sadly, addresses are identified by, well, address alone. Therefore we have no other data that
             # could be used to find out if there is a replacement location.
@@ -167,7 +169,8 @@ class OsoiteImporter(Importer):
 
     def import_places(self):
         # munigeo saves addresses in local db, we just create Places from them.
-        # note that the addresses only change daily and the import is time-consuming, so we should not run this hourly
+        # note that the addresses only change daily and the import is
+        # time-consuming, so we should not run this hourly
 
         # addresses require the municipalities to be present in the db
         call_command("geo_import", "finland", municipalities=True)

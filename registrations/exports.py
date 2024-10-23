@@ -166,7 +166,8 @@ class RegistrationSignUpsExportXLSX:
             # Add a table containing the signups' data.
             self._add_signups_table(worksheet, 6)
 
-            # Automatically try to adjust signup table column widths to make values visible in the columns.
+            # Automatically try to adjust signup table column widths to make values
+            # visible in the columns.
             worksheet.autofit()
 
             # Add info texts about data protection and contact information.

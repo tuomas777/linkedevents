@@ -40,7 +40,8 @@ class JSONLDRelatedField(relations.HyperlinkedRelatedField):
 
         if self.is_expanded():
             context = self.context.copy()
-            # To avoid infinite recursion, only include sub/super events one level at a time
+            # To avoid infinite recursion, only include sub/super events one level at
+            # a time
             if "include" in context:
                 context["include"] = [
                     x

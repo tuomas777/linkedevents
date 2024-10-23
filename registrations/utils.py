@@ -358,7 +358,8 @@ def get_web_store_refund_payment_status(refund_id: str) -> Optional[str]:
     payments_list = get_web_store_refund_payments(refund_id)
     if payments_list:
         # Even though the API returns a list, it will contain only one payment in our case since
-        # we create a new refund each time and it will have a single payment created in Talpa.
+        # we create a new refund each time and it will have a single payment
+        # created in Talpa.
         return payments_list[0].get("status")
 
     return None

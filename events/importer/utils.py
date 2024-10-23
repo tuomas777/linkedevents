@@ -51,7 +51,8 @@ def separate_scripts(text, scripts):
     :param scripts: Iterable of allowed languages.
     :return:
     """
-    # separate the text by paragraphs, matching to select html and plain text delimiters in data
+    # separate the text by paragraphs, matching to select html and plain text
+    # delimiters in data
     paragraphs = re.split(r"(</p><p>|\n|</p>|<p>| – |<br><br><br>)+", text)
     separated = {script: "" for script in scripts}
     # the first language given is the default one
@@ -162,7 +163,8 @@ def replace_location(
                 if replacements.count() == 1:
                     by = replacements[0]
                 else:
-                    # no replacement whatsoever was found, this may result in an exception
+                    # no replacement whatsoever was found, this may result in an
+                    # exception
                     return False
             else:
                 return False
@@ -172,7 +174,8 @@ def replace_location(
         )
         if to_be_replaced.count() == 1:
             replace = to_be_replaced[0]
-        # if no place to be replaced was found, it's alright, we might have a brand new location here!
+        # if no place to be replaced was found, it's alright, we might have a
+        # brand new location here!
     by.deleted = False
     by.replaced_by = None
     by.save(update_fields=["deleted", "replaced_by"])

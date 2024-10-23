@@ -1154,7 +1154,8 @@ class SignUpGroup(
             )
 
         if (payment_refunded or payment_cancelled) and not bypass_web_store_api_calls:
-            # Signup group will be deleted after the refund or cancellation webhook arrives.
+            # Signup group will be deleted after the refund or cancellation webhook
+            # arrives.
             return
 
         super().delete(*args, **kwargs)

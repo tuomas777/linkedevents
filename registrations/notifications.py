@@ -948,7 +948,8 @@ def get_signup_notification_texts(
             lang=service_lang, date_only=True
         )
     else:
-        # Signup or cancellation for a normal event (or for a sub-event of a super event).
+        # Signup or cancellation for a normal event (or for a sub-event of a super
+        # event).
         text_options = signup_email_texts[notification_type]
         event_period = None
 
@@ -1032,7 +1033,8 @@ def get_signup_notification_subject(
                 % subject_format_kwargs
             )
         else:
-            # Signup or cancellation for a normal event (or for a sub-event of a super event).
+            # Signup or cancellation for a normal event (or for a sub-event of a super
+            # event).
             notification_subject = (
                 signup_notification_subjects[notification_type] % subject_format_kwargs
             )

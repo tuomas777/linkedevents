@@ -556,7 +556,8 @@ class EspooImporter(Importer):
 
         # Grab all relevant events from origin
         # Using include=keywords,audience,location and restrict events starting from
-        # configured days (defaulting to 180) back to reduce the number of needed requests.
+        # configured days (defaulting to 180) back to reduce the number of needed
+        # requests.
         events_data = _list_data(
             _build_url("v1/event/"),
             params={
@@ -615,7 +616,8 @@ class EspooImporter(Importer):
             copy_fields=["name"],
         )
 
-        # Mark Organizations which are referenced in older Espoo events to avoid deletion.
+        # Mark Organizations which are referenced in older Espoo events to avoid
+        # deletion.
         for org in Organization.objects.filter(
             data_source=self.data_source, published_events__in=old_event_ids
         ).iterator():

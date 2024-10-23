@@ -256,7 +256,8 @@ class JSONAPIViewMixin(object):
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        # user admin ids must be injected to the context for nested serializers, to avoid duplicating work
+        # user admin ids must be injected to the context for nested serializers,
+        # to avoid duplicating work
         user = context["request"].user
         admin_tree_ids = set()
         if user and user.is_authenticated:
@@ -1541,7 +1542,8 @@ class ImageViewSet(
             if instance.data_source != user.data_source:
                 raise PermissionDenied()
         else:
-            # without api key, data_source should have user_editable_resources set to True
+            # without api key, data_source should have user_editable_resources set to
+            # True
             if not instance.is_user_editable_resources():
                 raise PermissionDenied()
 
@@ -2004,7 +2006,8 @@ def _filter_event_queryset(queryset, params, srs=None):  # noqa: C901
         end = (today + timedelta(days=days)).isoformat()
 
     if not end:
-        # postponed events are considered to be "far" in the future and should be included if end is *not* given
+        # postponed events are considered to be "far" in the future and should be
+        # included if end is *not* given
         postponed_q = Q(event_status=Event.Status.POSTPONED)
     else:
         postponed_q = Q()
@@ -2014,7 +2017,8 @@ def _filter_event_queryset(queryset, params, srs=None):  # noqa: C901
         dt = utils.parse_time(start, default_tz=pytz.timezone(settings.TIME_ZONE))[0]
 
         # only return events with specified end times, or unspecified start times, during the whole of the event
-        # this gets of rid pesky one-day events with no known end time (but known start) after they started
+        # this gets of rid pesky one-day events with no known end time (but known
+        # start) after they started
         queryset = queryset.filter(
             Q(end_time__gt=dt, has_end_time=True)
             | Q(end_time__gt=dt, has_start_time=False)
@@ -2500,10 +2504,12 @@ class EventViewSet(
                 )
             # by default, only public events are shown in the event list
             queryset = public_queryset
-            # however, certain query parameters allow customizing the listing for authenticated users
+            # however, certain query parameters allow customizing the listing for
+            # authenticated users
             show_all = self.request.query_params.get("show_all")
             if show_all:
-                # displays all editable events, including drafts, and public non-editable events
+                # displays all editable events, including drafts, and public
+                # non-editable events
                 queryset = editable_queryset | public_queryset
 
             admin_user = self.request.query_params.get("admin_user")
@@ -2516,7 +2522,8 @@ class EventViewSet(
                 )
 
             if admin_user:
-                # displays all editable events, including drafts, but no other public events
+                # displays all editable events, including drafts, but no other public
+                # events
                 queryset = editable_queryset
 
             created_by = self.request.query_params.get("created_by")
@@ -2530,7 +2537,8 @@ class EventViewSet(
                 queryset, self.request.query_params, srs=self.srs
             )
         elif self.request.method not in permissions.SAFE_METHODS:
-            # prevent changing events user does not have write permissions (for bulk operations)
+            # prevent changing events user does not have write permissions (for bulk
+            # operations)
             if isinstance(self.request.data, list):
                 try:
                     original_queryset = Event.objects.filter(
@@ -2604,7 +2612,8 @@ class EventViewSet(
         # For bulk update, the editable queryset is filtered in filter_queryset
         # method
 
-        # Prevent changing existing events to a state that user does not have write permissions
+        # Prevent changing existing events to a state that user does not have
+        # write permissions
         for event_data in serializer.validated_data:
             try:
                 instance = serializer.instance.get(id=event_data["id"])

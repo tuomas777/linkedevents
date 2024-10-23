@@ -484,7 +484,8 @@ class SignUpSerializer(
             and not signup.signup_group_id
         ):
             # Payment can only be created here for an attending signup that is not part of a group.
-            # A group will have a single shared payment that is created in the group serializer.
+            # A group will have a single shared payment that is created in the group
+            # serializer.
             payment = self._create_payment(signup)
 
         if signup:
@@ -545,7 +546,8 @@ class SignUpSerializer(
 
         for field in registration.mandatory_fields:
             if self.partial and field not in validated_data.keys():
-                # Don't validate field if request method is PATCH and field is missing from the payload.
+                # Don't validate field if request method is PATCH and field is missing
+                # from the payload.
                 continue
             elif validated_data.get(field) in falsy_values:
                 errors[field] = _("This field must be specified.")
@@ -1005,13 +1007,15 @@ class RegistrationSerializer(LinkedEventsSerializer, CreatedModifiedBaseSerializ
     @extend_schema_field(Optional[int])
     def get_remaining_attendee_capacity(self, obj):
         # Because there can be slight delay with capacity calculations in case of seat expiration,
-        # calculate the current value on the fly so that front-end gets the most recent information.
+        # calculate the current value on the fly so that front-end gets the most
+        # recent information.
         return obj.calculate_remaining_attendee_capacity()
 
     @extend_schema_field(Optional[int])
     def get_remaining_waiting_list_capacity(self, obj):
         # Because there can be slight delay with capacity calculations in case of seat expiration,
-        # calculate the current value on the fly so that front-end gets the most recent information.
+        # calculate the current value on the fly so that front-end gets the most
+        # recent information.
         return obj.calculate_remaining_waiting_list_capacity()
 
     @extend_schema_field(OpenApiTypes.STR)
@@ -1150,7 +1154,8 @@ class RegistrationSerializer(LinkedEventsSerializer, CreatedModifiedBaseSerializ
     def create(self, validated_data):
         user = self.request.user
         if isinstance(user, ApiKeyUser):
-            # allow creating a registration only if the api key matches event data source
+            # allow creating a registration only if the api key matches event data
+            # source
             if (
                 "event" in validated_data
                 and validated_data["event"].data_source != user.data_source
@@ -2127,7 +2132,8 @@ class WebStoreMerchantSerializer(CreatedModifiedBaseSerializer):
                 user.is_authenticated
                 and (user.is_superuser or user.is_financial_admin_of(organization))
             ):
-                # Show Paytrail and merchant ID fields only to superusers and financial admins.
+                # Show Paytrail and merchant ID fields only to superusers and financial
+                # admins.
                 for field in self.admin_only_fields:
                     self.fields.pop(field, None)
 

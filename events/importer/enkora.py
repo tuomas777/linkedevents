@@ -603,12 +603,14 @@ class EnkoraImporter(Importer):
             "keywords": set(),
         },
         302: {
-            "enkora-name": "Malmin peruskoulu (Talvelantie 1)",  # kts. 257: Malmin pk, OV, Talvelantie 1
+            # kts. 257: Malmin pk, OV, Talvelantie 1
+            "enkora-name": "Malmin peruskoulu (Talvelantie 1)",
             "tprek-id": 46604,
             "keywords": set(),
         },
         303: {
-            "enkora-name": "Käpylän peruskoulu (Untamontie 2)",  # kts. 262: Käpylän pk, IV, Untamontie 2
+            # kts. 262: Käpylän pk, IV, Untamontie 2
+            "enkora-name": "Käpylän peruskoulu (Untamontie 2)",
             "tprek-id": 51480,
             "keywords": set(),
         },
@@ -1057,7 +1059,8 @@ class EnkoraImporter(Importer):
 
             course_sync_count += 1
 
-        # After looping all the courses, delete the obsoleted ones (unless doing a single event).
+        # After looping all the courses, delete the obsoleted ones (unless doing a
+        # single event).
         event_syncher.finish(force=True)
 
         # Delayed conversion exception?
@@ -1843,7 +1846,8 @@ class EnkoraImporter(Importer):
             for lang in EnkoraImporter.supported_languages
         }
 
-        # If there's no course title found for key: reservation_event_group_name_fi, set the default one
+        # If there's no course title found for key:
+        # reservation_event_group_name_fi, set the default one
         if not course_title["fi"]:
             course_title["fi"] = course.get("reservation_event_group_name")
 
@@ -1934,7 +1938,8 @@ class EnkoraImporter(Importer):
         }
 
         # If there's no description found for keys:
-        # description_long_fi, description_fi, reservation_event_group_name_fi, set to the default one
+        # description_long_fi, description_fi, reservation_event_group_name_fi,
+        # set to the default one
         if not description["fi"]:
             description["fi"] = (
                 course.get("description_long")
@@ -1960,9 +1965,11 @@ class EnkoraImporter(Importer):
             },
         }
 
-        # Iterate over the different translations and form descriptions with proper HTML tags
+        # Iterate over the different translations and form descriptions with
+        # proper HTML tags
         for lang in EnkoraImporter.supported_languages:
-            # Check if the course there's a course description for the language, if there is, add additional info
+            # Check if the course there's a course description for the language, if
+            # there is, add additional info
             if description[lang]:
                 # Convert imported plain-text into HTML
                 # Make sure characters are escaped properly, form paragraphs
@@ -2207,7 +2214,8 @@ class EnkoraImporter(Importer):
             # Checking if tag_group_id = 5, i.e. Ohjauskieli
             if int(tag_group.get("tag_group_id", -1)) == 5:
                 language_tag_id = int(tag_group.get("tag_id", -1))
-                # Stopping iterations once first language tag encountered, there should only be one
+                # Stopping iterations once first language tag encountered, there should
+                # only be one
                 break
 
         if language_tag_id == 45:
@@ -2229,7 +2237,8 @@ class EnkoraImporter(Importer):
         if service_id not in EnkoraImporter.liikuntakauppa_links:
             return EnkoraImporter.liikuntakauppa_links[""]
 
-        # All other link types, except default, will get the course ID attached to the link
+        # All other link types, except default, will get the course ID attached to
+        # the link
         chosen_link_base = EnkoraImporter.liikuntakauppa_links[service_id]
         chosen_link = chosen_link_base + str(course["reservation_event_group_id"])
 
@@ -2722,7 +2731,8 @@ class Kurssidata(Enkora):
                 reservation_events.append(reservation_event)
 
             if "reservations" in course:
-                # Note: In Enkora a reservation is for the entire course, not for a specific event of it.
+                # Note: In Enkora a reservation is for the entire course, not for a
+                # specific event of it.
                 for reservation_in in course["reservations"]:
                     reservation = {
                         "reservation_id": int(reservation_in["reservation_id"]),

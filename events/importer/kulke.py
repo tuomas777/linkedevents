@@ -222,7 +222,8 @@ MANUAL_CATEGORIES = {
 # these are added to all courses
 COURSE_KEYWORDS = ("p9270",)
 
-# retain the above for simplicity, even if kulke importer internally requires full keyword ids
+# retain the above for simplicity, even if kulke importer internally
+# requires full keyword ids
 KEYWORDS_TO_ADD_TO_AUDIENCE = ["yso:{}".format(i) for i in KEYWORDS_TO_ADD_TO_AUDIENCE]
 
 # category text replacements for keyword determination
@@ -694,7 +695,8 @@ class KulkeImporter(Importer):
                         for c in category.get("yso_keywords", []):
                             event_keywords.add(c)
                             if c.id in KEYWORDS_TO_ADD_TO_AUDIENCE:
-                                # retain the keyword in keywords as well, for backwards compatibility
+                                # retain the keyword in keywords as well, for backwards
+                                # compatibility
                                 event_audience.add(c)
                 # Also save original kulke categories as keywords
                 kulke_id = make_kulke_id(category_id.text)
@@ -831,7 +833,8 @@ class KulkeImporter(Importer):
             else:
                 setattr(super_event, fieldname, value)
 
-        # The name may vary within a recurring event; hence, take the common part in each language
+        # The name may vary within a recurring event; hence, take the common part
+        # in each language
         for lang in self.languages:
             name_attr = f"name_{lang}"
             first_name = getattr(first_event, name_attr)
@@ -944,7 +947,8 @@ class KulkeImporter(Importer):
     def _handle_removed_events(
         self, elis_event_ids: Sequence[int], begin_date: datetime
     ) -> None:
-        # Find Kulke events that are not referenced in the latest data from Elis and delete them.
+        # Find Kulke events that are not referenced in the latest data from Elis
+        # and delete them.
         unreferenced_events = Event.objects.filter(
             data_source=self.data_source,
             start_time__gte=begin_date,

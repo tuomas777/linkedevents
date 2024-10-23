@@ -12,7 +12,8 @@ def count_events_for_keywords(keyword_ids=(), all=False):
     :return: dict of keyword id to count
     :rtype: dict[str, int]
     """
-    # sorry for the non-DRY-ness; would be easier with an SQL generator like SQLAlchemy, but...
+    # sorry for the non-DRY-ness; would be easier with an SQL generator like
+    # SQLAlchemy, but...
 
     keyword_ids = tuple(set(keyword_ids))
     with connection.cursor() as cursor:
@@ -57,7 +58,8 @@ def count_events_for_places(place_ids=(), all=False):
     :return: dict of place id to count
     :rtype: dict[str, int]
     """
-    # sorry for the non-DRY-ness; would be easier with an SQL generator like SQLAlchemy, but...
+    # sorry for the non-DRY-ness; would be easier with an SQL generator like
+    # SQLAlchemy, but...
 
     place_ids = tuple(set(place_ids))
     with connection.cursor() as cursor:

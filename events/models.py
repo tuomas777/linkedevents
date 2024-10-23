@@ -1105,7 +1105,8 @@ class Event(
         Keyword, related_name="audience_events", blank=True
     )
 
-    # this field is redundant, but allows to avoid expensive joins when searching for local events
+    # this field is redundant, but allows to avoid expensive joins when
+    # searching for local events
     local = models.BooleanField(default=False)
 
     # these fields are populated and kept up to date by the db. See migration 0080

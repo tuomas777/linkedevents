@@ -109,7 +109,8 @@ class Command(BaseCommand):
             val for sublist in KEYWORD_MAPPING.values() for val in sublist
         ]
 
-        # keywords to add to the set = YSO keywords corresponding to hel.fi + YSO SOTE keywords + new SOTE keywords
+        # keywords to add to the set = YSO keywords corresponding to hel.fi + YSO
+        # SOTE keywords + new SOTE keywords
         keyword_ids = (
             yso_keyword_ids
             + YSO_SOTE_KEYWORD_IDS
@@ -137,7 +138,8 @@ class Command(BaseCommand):
             "audience"
         ):
             for audience in event.audience.all():
-                # if current audience is a valid hel.fi audience keyword, iterate YSO keywords corresponding to it
+                # if current audience is a valid hel.fi audience keyword, iterate YSO
+                # keywords corresponding to it
                 for yso_keyword_id in KEYWORD_MAPPING.get(audience.id, []):
                     yso_keyword_obj = self.get_keyword_obj(yso_keyword_id)
 
@@ -150,7 +152,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Helsinki data source must be created if missing. Note that it is not necessarily the system data source.
-        # If we are creating it, it *may* still be the system data source, so it must be user editable!
+        # If we are creating it, it *may* still be the system data source, so it
+        # must be user editable!
         helsinki_data_source_defaults = {
             "user_editable_resources": True,
             "user_editable_organizations": True,

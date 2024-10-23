@@ -58,7 +58,8 @@ class TprekImporter(Importer):
     def delete_and_replace(self, obj):
         obj.deleted = True
         obj.save(update_fields=["deleted"])
-        # we won't stand idly by and watch tprek delete needed units willy-nilly without raising a ruckus!
+        # we won't stand idly by and watch tprek delete needed units willy-nilly
+        # without raising a ruckus!
         if obj.events.count() > 0:
             # try to replace by tprek
             replaced = replace_location(replace=obj, by_source="tprek")

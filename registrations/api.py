@@ -179,7 +179,8 @@ class RegistrationViewSet(
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        # user registration admin ids must be injected to the context for nested serializers, to avoid duplicating work
+        # user registration admin ids must be injected to the context for nested
+        # serializers, to avoid duplicating work
         user = context["request"].user
         registration_admin_tree_ids = set()
 
@@ -327,7 +328,8 @@ class RegistrationViewSet(
         try:
             instance.delete()
         # At the moment ProtecterError is raised only if user tries to remove registration with signups.
-        # Add logic to handle protected errors if more proteted fks are added in the future.
+        # Add logic to handle protected errors if more proteted fks are added in
+        # the future.
         except ProtectedError:
             raise ConflictException(_("Registration with signups cannot be deleted"))
 
@@ -591,7 +593,8 @@ class SignUpViewSet(
         summary="Return a list of signups",
         description=render_to_string("swagger/signup_list_description.html"),
         parameters=[
-            # Rest of the parameters are described in the filter class through help_texts.
+            # Rest of the parameters are described in the filter class through
+            # help_texts.
             OpenApiParameter(
                 name="sort",
                 type=OpenApiTypes.STR,
@@ -803,7 +806,8 @@ class SignUpGroupViewSet(
         summary="Return a list of signup groups",
         description=render_to_string("swagger/signup_group_list_description.html"),
         parameters=[
-            # Rest of the parameters are described in the filter class through help_texts.
+            # Rest of the parameters are described in the filter class through
+            # help_texts.
             OpenApiParameter(
                 name="sort",
                 type=OpenApiTypes.STR,
@@ -990,7 +994,8 @@ class PriceGroupViewSet(
         summary="Return a list of customer groups",
         description=render_to_string("swagger/price_group_list_description.html"),
         parameters=[
-            # Rest of the parameters are described in the filter class through help_texts.
+            # Rest of the parameters are described in the filter class through
+            # help_texts.
             OpenApiParameter(
                 name="sort",
                 type=OpenApiTypes.STR,

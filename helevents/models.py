@@ -70,11 +70,11 @@ class UserModelPermissionMixin:
         raise NotImplementedError()
 
     def is_registration_admin_of(self, publisher):
-        """Check if current user is a registration admin user of the publisher organization"""
+        """Check if current user is a registration admin user of the publisher organization"""  # noqa: E501
         raise NotImplementedError()
 
     def is_financial_admin_of(self, publisher):
-        """Check if current user is a financial admin user of the publisher organization"""
+        """Check if current user is a financial admin user of the publisher organization"""  # noqa: E501
         raise NotImplementedError()
 
     def is_regular_user_of(self, publisher):
@@ -131,11 +131,11 @@ class UserModelPermissionMixin:
         raise NotImplementedError()
 
     def can_create_event(self, publisher, publication_status):
-        """Check if current user can create an event with the given publisher and publication_status"""
+        """Check if current user can create an event with the given publisher and publication_status"""  # noqa: E501
         return self.can_edit_event(publisher, publication_status, created_by=self)
 
     def can_edit_event(self, publisher, publication_status, created_by=None):
-        """Check if current user can edit an event with the given publisher and publication_status"""
+        """Check if current user can edit an event with the given publisher and publication_status"""  # noqa: E501
         if self.is_admin_of(publisher):
             return True
 

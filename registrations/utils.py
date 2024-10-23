@@ -163,7 +163,7 @@ def strip_trailing_zeroes_from_decimal(value: Decimal):
 
 
 def move_waitlisted_to_attending(registration, count: int):
-    """Changes given number of wait-listed attendees in a registration to be attending."""
+    """Changes given number of wait-listed attendees in a registration to be attending."""  # noqa: E501
     waitlisted_signups = registration.get_waitlisted(count=count)
     price_groups_exist = (
         settings.WEB_STORE_INTEGRATION_ENABLED
@@ -357,7 +357,7 @@ def get_web_store_payment_status(order_id: str) -> Optional[str]:
 def get_web_store_refund_payment_status(refund_id: str) -> Optional[str]:
     payments_list = get_web_store_refund_payments(refund_id)
     if payments_list:
-        # Even though the API returns a list, it will contain only one payment in our case since
+        # Even though the API returns a list, it will contain only one payment in our case since  # noqa: E501
         # we create a new refund each time and it will have a single payment
         # created in Talpa.
         return payments_list[0].get("status")

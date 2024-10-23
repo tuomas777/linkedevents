@@ -76,7 +76,7 @@ class JSONLDRelatedField(relations.HyperlinkedRelatedField):
         return getattr(self, "expanded", False)
 
     def get_queryset(self):
-        #  For certain related fields we preload the queryset to avoid *.objects.all() query which can easily overload
+        #  For certain related fields we preload the queryset to avoid *.objects.all() query which can easily overload  # noqa: E501
         #  the memory as database grows.
         if isinstance(self._kwargs["serializer"], str):
             return super().get_queryset()

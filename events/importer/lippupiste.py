@@ -76,7 +76,7 @@ YSO_KEYWORD_MAPS = {
 }
 
 HKT_TPREK_PLACE_MAP = {
-    "Arena-näyttämö": "tprek:46367",  # As of writing, tprek has duplicate, so we will map manually
+    "Arena-näyttämö": "tprek:46367",  # As of writing, tprek has duplicate, so we will map manually  # noqa: E501
     "Gloria, Pieni Roobertinkatu, Helsinki": "tprek:8099",  # String match fails
     "Helsingin Vanha kirkko": "tprek:43184",  # String match fails
 }
@@ -386,7 +386,7 @@ class LippupisteImporter(Importer):
         place_id = None
         if matches_by_address:
             logger.info(
-                "address match, pick the name with most common words and least different words, if any:"
+                "address match, pick the name with most common words and least different words, if any:"  # noqa: E501
             )
             if len(matches_by_address) > 1:
                 for _common_words, match_list in sorted(
@@ -414,7 +414,7 @@ class LippupisteImporter(Importer):
             return place_id
         if matches_by_partial_name:
             logger.info(
-                "partial name match, pick the name with most common words and least different words:"
+                "partial name match, pick the name with most common words and least different words:"  # noqa: E501
             )
             most_common_words = max(matches_by_partial_name.keys())
             most_common_matches = matches_by_partial_name[most_common_words]
@@ -453,7 +453,7 @@ class LippupisteImporter(Importer):
         event_date = datetime.strptime(source_event["EventDate"], "%d.%m.%Y").date()
         event_time = datetime.strptime(source_event["EventTime"], "%H:%M").time()
         event_datetime = LOCAL_TZ.localize(datetime.combine(event_date, event_time))
-        # we would prefer to retain the local timezone, so as to better communicate it to base importer
+        # we would prefer to retain the local timezone, so as to better communicate it to base importer  # noqa: E501
         # event_datetime = event_datetime.astimezone(pytz.utc)
         event["start_time"] = event_datetime
         provider = source_event["EventPromoterName"]
@@ -681,7 +681,7 @@ class LippupisteImporter(Importer):
                 # not ignored
                 # check if the event already exists from another data source
                 for data_source in DATA_SOURCES_TO_CHECK_FOR_DUPLICATES:
-                    # the event name must *start* with an existing event name, as lippupiste uses suffixes
+                    # the event name must *start* with an existing event name, as lippupiste uses suffixes  # noqa: E501
                     # there is no standard django method for filtering startswith this
                     # way around
                     event_name = source_event["EventName"].lower()
@@ -695,7 +695,7 @@ class LippupisteImporter(Importer):
                         logger.info("---------")
                         logger.info(source_event["EventName"])
                         logger.info(
-                            "omitting due to event existing already in another data source:"
+                            "omitting due to event existing already in another data source:"  # noqa: E501
                         )
                         logger.info(data_source)
                         break

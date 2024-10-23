@@ -135,7 +135,7 @@ class SignUpPaymentRefundMixin:
         ):
             raise ConflictException(
                 _(
-                    "Refund or cancellation already exists. Please wait for the process "
+                    "Refund or cancellation already exists. Please wait for the process "  # noqa: E501
                     "to complete."
                 )
             )
@@ -212,9 +212,9 @@ class RegistrationViewSet(
             ),
             IncludeOpenApiParameter(
                 description=(
-                    "Embed given reference-type fields, comma-separated if several, directly into "
-                    "the response, otherwise they are returned as URI references. The value "
-                    "<code>signups</code> can be used to include signups' data, and the value "
+                    "Embed given reference-type fields, comma-separated if several, directly into "  # noqa: E501
+                    "the response, otherwise they are returned as URI references. The value "  # noqa: E501
+                    "<code>signups</code> can be used to include signups' data, and the value "  # noqa: E501
                     "<code>event</code> can be used to include the event's data."
                 ),
             ),
@@ -222,8 +222,8 @@ class RegistrationViewSet(
                 name="text",
                 type=OpenApiTypes.STR,
                 description=(
-                    "Search (case insensitive) through all event's multilingual text fields "
-                    "(name, description, short_description, info_url) of a registration."
+                    "Search (case insensitive) through all event's multilingual text fields "  # noqa: E501
+                    "(name, description, short_description, info_url) of a registration."  # noqa: E501
                 ),
             ),
         ],
@@ -259,9 +259,9 @@ class RegistrationViewSet(
     @extend_schema(
         summary="Update a registration",
         description=(
-            "Registration can be updated if the user has appropriate access permissions. The "
-            "original implementation behaves like PATCH, ie. if some field is left out from the "
-            "PUT call, its value is retained in database. In order to ensure consistent behaviour, "
+            "Registration can be updated if the user has appropriate access permissions. The "  # noqa: E501
+            "original implementation behaves like PATCH, ie. if some field is left out from the "  # noqa: E501
+            "PUT call, its value is retained in database. In order to ensure consistent behaviour, "  # noqa: E501
             "users should always supply every field in PUT call."
         ),
         responses={
@@ -296,7 +296,7 @@ class RegistrationViewSet(
 
     @extend_schema(
         summary="Delete a registration",
-        description="Registration can be deleted if the user has appropriate access permissions.",
+        description="Registration can be deleted if the user has appropriate access permissions.",  # noqa: E501
         responses={
             204: OpenApiResponse(
                 description=_("Registration has been successfully deleted."),
@@ -327,7 +327,7 @@ class RegistrationViewSet(
     def perform_destroy(self, instance):
         try:
             instance.delete()
-        # At the moment ProtecterError is raised only if user tries to remove registration with signups.
+        # At the moment ProtecterError is raised only if user tries to remove registration with signups.  # noqa: E501
         # Add logic to handle protected errors if more proteted fks are added in
         # the future.
         except ProtectedError:
@@ -339,7 +339,7 @@ class RegistrationViewSet(
         # Copy query_params to get mutable version of it
         query_params = self.request.query_params.copy()
         # By default _filter_event_queryset only returns events with GENERAL type.
-        # This causes problem when getting a registration details, so filter registrations
+        # This causes problem when getting a registration details, so filter registrations  # noqa: E501
         # by event_type only when explicitly set
         if not query_params.get("event_type"):
             event_types = {k[1].lower(): k[0] for k in Event.TYPE_IDS}
@@ -399,7 +399,7 @@ class RegistrationViewSet(
     @extend_schema(
         summary="Send a message to attendees",
         description=(
-            "Email message to registration attendees can be send if the user has appropriate "
+            "Email message to registration attendees can be send if the user has appropriate "  # noqa: E501
             "access permissions."
         ),
     )
@@ -415,7 +415,7 @@ class RegistrationViewSet(
         if not signups_perm.has_object_permission(self.request, self, registration):
             raise DRFPermissionDenied(
                 _(
-                    "Only the admins of the registration organizations have access rights."
+                    "Only the admins of the registration organizations have access rights."  # noqa: E501
                 )
             )
 
@@ -448,7 +448,7 @@ class RegistrationViewSet(
         if not message_contact_persons:
             return Response(
                 _(
-                    "No contact persons with email addresses found for the given participants."
+                    "No contact persons with email addresses found for the given participants."  # noqa: E501
                 ),
                 status=status.HTTP_404_NOT_FOUND,
             )
@@ -482,7 +482,7 @@ class RegistrationViewSet(
     @extend_schema(
         summary="Export attendees as an XLSX file",
         description=(
-            "Registration attendees XLSX export can be made if the user has appropriate access "
+            "Registration attendees XLSX export can be made if the user has appropriate access "  # noqa: E501
             "permissions."
         ),
         parameters=[
@@ -490,7 +490,7 @@ class RegistrationViewSet(
                 name="ui_language",
                 type=OpenApiTypes.STR,
                 description=(
-                    "UI language locale. Can be either <code>fi</code>, <code>sv</code> or "
+                    "UI language locale. Can be either <code>fi</code>, <code>sv</code> or "  # noqa: E501
                     "<code>en</code>. Defaults to <code>fi</code> if no value given."
                 ),
             ),
@@ -550,7 +550,7 @@ class RegistrationUserAccessViewSet(AuditLogApiViewMixin, viewsets.GenericViewSe
         responses={
             200: OpenApiResponse(
                 RegistrationUserAccessSerializer,
-                description="Invitation was successfully sent to the registration user.",
+                description="Invitation was successfully sent to the registration user.",  # noqa: E501
             ),
             **get_common_api_error_responses(excluded_codes=[400]),
             404: OpenApiResponse(
@@ -599,8 +599,8 @@ class SignUpViewSet(
                 name="sort",
                 type=OpenApiTypes.STR,
                 description=(
-                    "Sort the returned signups in the given order. Possible sorting criteria are "
-                    "<code>first_name</code> and <code>last_name</code>. The default ordering is "
+                    "Sort the returned signups in the given order. Possible sorting criteria are "  # noqa: E501
+                    "<code>first_name</code> and <code>last_name</code>. The default ordering is "  # noqa: E501
                     "<code>first_name,last_name</code>."
                 ),
             ),
@@ -680,9 +680,9 @@ class SignUpViewSet(
     @extend_schema(
         summary="Update a signup",
         description=(
-            "Signup can be updated if the user has appropriate access permissions. The original "
-            "implementation behaves like PATCH, ie. if some field is left out from the PUT call, "
-            "its value is retained in database. In order to ensure consistent behaviour, users "
+            "Signup can be updated if the user has appropriate access permissions. The original "  # noqa: E501
+            "implementation behaves like PATCH, ie. if some field is left out from the PUT call, "  # noqa: E501
+            "its value is retained in database. In order to ensure consistent behaviour, users "  # noqa: E501
             "should always supply every field in PUT call."
         ),
         responses={
@@ -717,7 +717,7 @@ class SignUpViewSet(
 
     @extend_schema(
         summary="Delete a signup",
-        description="Signup can be deleted if the user has appropriate access permissions.",
+        description="Signup can be deleted if the user has appropriate access permissions.",  # noqa: E501
         responses={
             204: OpenApiResponse(
                 description="Signup has been successfully deleted.",
@@ -812,7 +812,7 @@ class SignUpGroupViewSet(
                 name="sort",
                 type=OpenApiTypes.STR,
                 description=(
-                    "Sort the returned signup groups in the given order. Possible sorting "
+                    "Sort the returned signup groups in the given order. Possible sorting "  # noqa: E501
                     "criteria are <code>first_name</code> and <code>last_name</code>. "
                     "The default ordering is <code>first_name,last_name</code>."
                 ),
@@ -828,7 +828,7 @@ class SignUpGroupViewSet(
             200: OpenApiResponse(
                 SignUpGroupSerializer,
                 description=(
-                    "Single signup group object. Signup group can be retrieved if the user "
+                    "Single signup group object. Signup group can be retrieved if the user "  # noqa: E501
                     "has appropriate access permissions."
                 ),
             ),
@@ -859,9 +859,9 @@ class SignUpGroupViewSet(
     @extend_schema(
         summary="Update a signup group",
         description=(
-            "Signup group can be updated if the user has appropriate access permissions. "
-            "The original implementation behaves like PATCH, ie. if some field is left out "
-            "from the PUT call, its value is retained in database. In order to ensure consistent "
+            "Signup group can be updated if the user has appropriate access permissions. "  # noqa: E501
+            "The original implementation behaves like PATCH, ie. if some field is left out "  # noqa: E501
+            "from the PUT call, its value is retained in database. In order to ensure consistent "  # noqa: E501
             "behaviour, users should always supply every field in PUT call."
         ),
         responses={
@@ -900,7 +900,7 @@ class SignUpGroupViewSet(
 
     @extend_schema(
         summary="Delete a signup group",
-        description="Signup group can be deleted if the user has appropriate access permissions.",
+        description="Signup group can be deleted if the user has appropriate access permissions.",  # noqa: E501
         responses={
             204: OpenApiResponse(
                 description="Signup group has been successfully deleted.",
@@ -950,9 +950,9 @@ class SeatReservationViewSet(
     @extend_schema(
         summary="Update a seats reservation",
         description=(
-            "Seats reservation can be updated if the valid code is added to the payload. The "
-            "original implementation behaves like PATCH, ie. if some field is left out from the "
-            "PUT call, its value is retained in database. In order to ensure consistent "
+            "Seats reservation can be updated if the valid code is added to the payload. The "  # noqa: E501
+            "original implementation behaves like PATCH, ie. if some field is left out from the "  # noqa: E501
+            "PUT call, its value is retained in database. In order to ensure consistent "  # noqa: E501
             "behaviour, users should always supply every field in PUT call."
         ),
         responses={
@@ -1000,7 +1000,7 @@ class PriceGroupViewSet(
                 name="sort",
                 type=OpenApiTypes.STR,
                 description=(
-                    "Sort the returned customer groups in the given order by 'description'. "
+                    "Sort the returned customer groups in the given order by 'description'. "  # noqa: E501
                 ),
             ),
         ],
@@ -1035,7 +1035,7 @@ class PriceGroupViewSet(
     @extend_schema(
         summary="Update a customer group",
         description=(
-            "Customer group can be updated if the user has appropriate access permissions. "
+            "Customer group can be updated if the user has appropriate access permissions. "  # noqa: E501
             "Default customer groups cannot be updated."
         ),
         responses={
@@ -1077,7 +1077,7 @@ class PriceGroupViewSet(
     @extend_schema(
         summary="Delete a customer group",
         description=(
-            "Customer group can be deleted if the user has appropriate access permissions. "
+            "Customer group can be deleted if the user has appropriate access permissions. "  # noqa: E501
             "Default customer groups cannot be deleted."
         ),
         responses={
@@ -1188,7 +1188,7 @@ class WebStorePaymentWebhookViewSet(WebStoreWebhookBaseViewSet):
             if order_status != WebStoreOrderStatus.CANCELLED.value:
                 return Response(
                     _(
-                        "Order marked as cancelled in webhook payload, but not in Talpa API."
+                        "Order marked as cancelled in webhook payload, but not in Talpa API."  # noqa: E501
                     ),
                     status=status.HTTP_400_BAD_REQUEST,
                 )
@@ -1221,7 +1221,7 @@ class WebStorePaymentWebhookViewSet(WebStoreWebhookBaseViewSet):
             if payment_status != WebStorePaymentStatus.PAID.value:
                 return Response(
                     _(
-                        "Payment marked as paid in webhook payload, but not in Talpa API."
+                        "Payment marked as paid in webhook payload, but not in Talpa API."  # noqa: E501
                     ),
                     status=status.HTTP_400_BAD_REQUEST,
                 )
@@ -1249,7 +1249,7 @@ class WebStoreRefundWebhookViewSet(WebStoreWebhookBaseViewSet):
         if not refund:
             raise NotFound(
                 _(
-                    "Refund not found with order ID %(order_id)s and refund ID %(refund_id)s."
+                    "Refund not found with order ID %(order_id)s and refund ID %(refund_id)s."  # noqa: E501
                 )
                 % {"order_id": order_id, "refund_id": refund_id}
             )
@@ -1300,7 +1300,7 @@ class WebStoreRefundWebhookViewSet(WebStoreWebhookBaseViewSet):
             if refund_status != WebStoreOrderRefundStatus.PAID_ONLINE.value:
                 return Response(
                     _(
-                        "Refund marked as paid in webhook payload, but not in Talpa API."
+                        "Refund marked as paid in webhook payload, but not in Talpa API."  # noqa: E501
                     ),
                     status=status.HTTP_400_BAD_REQUEST,
                 )
@@ -1315,7 +1315,7 @@ class WebStoreRefundWebhookViewSet(WebStoreWebhookBaseViewSet):
             if refund_status != WebStoreOrderRefundStatus.CANCELLED.value:
                 return Response(
                     _(
-                        "Refund marked as failed in webhook payload, but not in Talpa API."
+                        "Refund marked as failed in webhook payload, but not in Talpa API."  # noqa: E501
                     ),
                     status=status.HTTP_400_BAD_REQUEST,
                 )

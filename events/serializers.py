@@ -512,7 +512,7 @@ class PlaceSerializer(EditableLinkedEventsObjectSerializer, GeoModelSerializer):
                 )
             else:
                 raise ParseError(
-                    f"Two coordinates have to be provided and they should be float. You provided {coord}"
+                    f"Two coordinates have to be provided and they should be float. You provided {coord}"  # noqa: E501
                 )
         return None
 
@@ -703,7 +703,7 @@ class OrganizationDetailSerializer(OrganizationListSerializer):
                     ]
                 else:
                     raise ParseError(
-                        f"{org_type} should be a list, you provided {type(self.request.data[org_type])}"
+                        f"{org_type} should be a list, you provided {type(self.request.data[org_type])}"  # noqa: E501
                     )
 
         web_store_merchants = validated_data.pop("web_store_merchants", None)
@@ -1009,7 +1009,7 @@ class EventSerializer(BulkSerializerMixin, EditableLinkedEventsObjectSerializer)
         if "publication_status" not in data:
             data["publication_status"] = PublicationStatus.PUBLIC
 
-        # If the event is a draft, postponed or cancelled, no further validation is performed
+        # If the event is a draft, postponed or cancelled, no further validation is performed  # noqa: E501
         # For external users do all validations.
         if (
             data["publication_status"] == PublicationStatus.DRAFT
@@ -1165,7 +1165,7 @@ class EventSerializer(BulkSerializerMixin, EditableLinkedEventsObjectSerializer)
             {
                 "created_by": user,
                 "last_modified_by": user,
-                "created_time": Event.now(),  # we must specify creation time as we are setting id
+                "created_time": Event.now(),  # we must specify creation time as we are setting id  # noqa: E501
                 "event_status": Event.Status.SCHEDULED,
                 # mark all newly created events as scheduled
             }
@@ -1240,7 +1240,7 @@ class EventSerializer(BulkSerializerMixin, EditableLinkedEventsObjectSerializer)
                 }
             )
 
-        # Update event_status if a PUBLIC SCHEDULED or CANCELLED event start_time is updated.
+        # Update event_status if a PUBLIC SCHEDULED or CANCELLED event start_time is updated.  # noqa: E501
         # DRAFT events will remain SCHEDULED up to publication.
         # Check that the event is not explicitly CANCELLED at the same time.
         if (
@@ -1353,7 +1353,7 @@ class EventSerializer(BulkSerializerMixin, EditableLinkedEventsObjectSerializer)
                 ret["end_time"] = None
 
             else:
-                # If we're storing only the date part, do not pretend we have the exact time.
+                # If we're storing only the date part, do not pretend we have the exact time.  # noqa: E501
                 # Timestamp is of the form %Y-%m-%dT00:00:00, so we report the previous
                 # date.
                 ret["end_time"] = utils.start_of_previous_day(obj.end_time).strftime(

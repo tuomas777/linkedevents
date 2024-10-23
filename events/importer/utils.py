@@ -28,7 +28,7 @@ def clean_text(text, strip_newlines=False, parse_html=False):
 def clean_url(url):
     """
     Takes in a string and returns it as a cleaned url, or empty if the string is not a valid URL.
-    """
+    """  # noqa: E501
     url = clean_text(url, True)
     url = url.replace(" ", "%20")
     if not re.match(r"^\w+?://", url):
@@ -50,7 +50,7 @@ def separate_scripts(text, scripts):
     :param text: The plain text or html to separate paragraphs in by language.
     :param scripts: Iterable of allowed languages.
     :return:
-    """
+    """  # noqa: E501
     # separate the text by paragraphs, matching to select html and plain text
     # delimiters in data
     paragraphs = re.split(r"(</p><p>|\n|</p>|<p>| – |<br><br><br>)+", text)
@@ -147,7 +147,7 @@ def replace_location(
     :param by_datasource: The data source to look for the location to replace by
     :param include_deleted: Include deleted locations when looking for replacements
     :return: Boolean that determines whether a new location was found for the hapless events
-    """
+    """  # noqa: E501
     if not by:
         replacements = Place.objects.filter(
             name__iexact=replace.name, data_source=by_source, deleted=False

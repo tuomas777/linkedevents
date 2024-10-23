@@ -47,9 +47,9 @@ class ModelSyncher(object):
         delete_list = []
         for _obj_id, obj in self.obj_dict.items():
             if obj._found:
-                # We have to reset _found so we don't mark or match the same object across several synchers.
+                # We have to reset _found so we don't mark or match the same object across several synchers.  # noqa: E501
                 # Only relevant if consecutive synchers get different querysets;
-                # then the marked object might come from outside the initial syncher queryset.
+                # then the marked object might come from outside the initial syncher queryset.  # noqa: E501
                 # That results in spurious _found values in both found and non-found
                 # objects.
                 obj._found = False
@@ -64,7 +64,7 @@ class ModelSyncher(object):
             and not force
         ):
             raise Exception(
-                f"Attempting to delete {len(delete_list)} out of a total of {len(self.obj_dict)} items"
+                f"Attempting to delete {len(delete_list)} out of a total of {len(self.obj_dict)} items"  # noqa: E501
             )
         for obj in delete_list:
             if self.allow_deleting_func:

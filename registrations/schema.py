@@ -32,7 +32,7 @@ class CreateSignUpsSerializerExtension(OpenApiSerializerExtension):
         )
 
         result["properties"]["reservation_code"]["description"] = (
-            "Registration-specific reservation code value from the SeatsReservation object."
+            "Registration-specific reservation code value from the SeatsReservation object."  # noqa: E501
         )
         result["properties"]["registration"]["description"] = (
             "Id of the registration to which the user is going to signup."
@@ -77,8 +77,8 @@ class OfferPriceGroupSerializerExtension(OpenApiSerializerExtension):
         result = super().map_serializer(auto_schema, direction)
 
         result["description"] = (
-            "Customer group selection with concrete pricing for an event's price offer. Used as "
-            "initial values for registration customer groups when creating a registration for "
+            "Customer group selection with concrete pricing for an event's price offer. Used as "  # noqa: E501
+            "initial values for registration customer groups when creating a registration for "  # noqa: E501
             "the event that the offer belongs to."
         )
 
@@ -86,9 +86,9 @@ class OfferPriceGroupSerializerExtension(OpenApiSerializerExtension):
             "Unique identifier for this offer customer group."
         )
         result["properties"]["price_group"]["description"] = (
-            "The organization-level customer group whose instance this offer customer group is. "
+            "The organization-level customer group whose instance this offer customer group is. "  # noqa: E501
             "Gives the name / label for the offer customer group and determines if the "
-            "customer group is free. Price will be forced to 0 if the customer group is free."
+            "customer group is free. Price will be forced to 0 if the customer group is free."  # noqa: E501
         )
         result["properties"]["price"]["description"] = (
             "Price of this customer group including VAT."
@@ -101,7 +101,7 @@ class OfferPriceGroupSerializerExtension(OpenApiSerializerExtension):
             )
         }
         result["properties"]["price_without_vat"]["description"] = (
-            "Price of this customer group excluding VAT. Calculated automatically based on "
+            "Price of this customer group excluding VAT. Calculated automatically based on "  # noqa: E501
             "<code>price</code> and <code>vat_percentage</code>."
         )
         result["properties"]["vat"]["description"] = (
@@ -119,8 +119,8 @@ class PriceGroupSerializerExtension(OpenApiSerializerExtension):
         result = super().map_serializer(auto_schema, direction)
 
         result["description"] = (
-            "Customer group selection for an organization. Used for creating customer groups "
-            "with prices for events and registrations. Default customer groups are available to "
+            "Customer group selection for an organization. Used for creating customer groups "  # noqa: E501
+            "with prices for events and registrations. Default customer groups are available to "  # noqa: E501
             "all organizations."
         )
 
@@ -128,11 +128,11 @@ class PriceGroupSerializerExtension(OpenApiSerializerExtension):
             "Unique identifier for this customer group."
         )
         result["properties"]["publisher"]["description"] = (
-            "Unique identifier of the organization to which this customer group belongs to. "
+            "Unique identifier of the organization to which this customer group belongs to. "  # noqa: E501
             "Default customer group will have a <code>null</code> value here."
         )
         result["properties"]["is_free"]["description"] = (
-            "Determines if the customer group is free of charge or if it should have a price once "
+            "Determines if the customer group is free of charge or if it should have a price once "  # noqa: E501
             "it is used in registration customer group selections."
         )
         result["properties"]["created_time"]["description"] = (
@@ -142,10 +142,10 @@ class PriceGroupSerializerExtension(OpenApiSerializerExtension):
             "Time when this customer group was last modified."
         )
         result["properties"]["created_by"]["description"] = (
-            "URL reference to the user that created this customer group (user endpoint)."
+            "URL reference to the user that created this customer group (user endpoint)."  # noqa: E501
         )
         result["properties"]["last_modified_by"]["description"] = (
-            "URL reference to the user that last modified this customer group (user endpoint)."
+            "URL reference to the user that last modified this customer group (user endpoint)."  # noqa: E501
         )
 
         result["properties"]["description"] = {
@@ -171,7 +171,7 @@ class RegistrationSerializerExtension(OpenApiSerializerExtension):
         result = super().map_serializer(auto_schema, direction)
 
         result["description"] = (
-            "Registrations are used for event registrations. They allow users to sign up to events."
+            "Registrations are used for event registrations. They allow users to sign up to events."  # noqa: E501
         )
 
         result["properties"]["id"]["description"] = (
@@ -185,29 +185,29 @@ class RegistrationSerializerExtension(OpenApiSerializerExtension):
         )
 
         result["properties"]["remaining_attendee_capacity"]["description"] = (
-            "The number of seats remaining in the event. Returns <code>null</code> if attendee "
+            "The number of seats remaining in the event. Returns <code>null</code> if attendee "  # noqa: E501
             "capacity is not limited."
         )
         result["required"].remove("remaining_attendee_capacity")
 
         result["properties"]["remaining_waiting_list_capacity"]["description"] = (
-            "The number of seats remaining in the waiting list. Returns <code>null</code> if "
+            "The number of seats remaining in the waiting list. Returns <code>null</code> if "  # noqa: E501
             "waiting list capacity is not limited."
         )
         result["required"].remove("remaining_waiting_list_capacity")
 
         result["properties"]["signups"]["description"] = (
-            "The list of attendees in the registration. Only admin users of the publisher "
+            "The list of attendees in the registration. Only admin users of the publisher "  # noqa: E501
             "organization are allowed to see this information."
         )
         result["required"].remove("signups")
 
         result["properties"]["data_source"]["description"] = (
-            "Identifies the source for data, this is specific to API provider. This value is "
+            "Identifies the source for data, this is specific to API provider. This value is "  # noqa: E501
             "inherited from the event of the registration."
         )
         result["properties"]["publisher"]["description"] = (
-            "Id for the organization that published this registration. This value is inherited "
+            "Id for the organization that published this registration. This value is inherited "  # noqa: E501
             "from the event of the registration."
         )
         result["properties"]["created_time"]["description"] = (
@@ -220,7 +220,7 @@ class RegistrationSerializerExtension(OpenApiSerializerExtension):
             "URL reference to the user that created this registration (user endpoint)."
         )
         result["properties"]["last_modified_by"]["description"] = (
-            "URL reference to the user that last modified this registration (user endpoint)."
+            "URL reference to the user that last modified this registration (user endpoint)."  # noqa: E501
         )
         result["properties"]["audience_min_age"]["description"] = (
             "Minimum age of attendees."
@@ -235,7 +235,7 @@ class RegistrationSerializerExtension(OpenApiSerializerExtension):
             "Time when enrolment for the event ends."
         )
         result["properties"]["maximum_attendee_capacity"]["description"] = (
-            "Maximum number of attendees allowed for the event. Can also be an estimate of the "
+            "Maximum number of attendees allowed for the event. Can also be an estimate of the "  # noqa: E501
             "maximum number of attendees."
         )
         result["properties"]["minimum_attendee_capacity"]["description"] = (
@@ -251,13 +251,13 @@ class RegistrationSerializerExtension(OpenApiSerializerExtension):
             "Mandatory fields in the enrolment form."
         )
         result["properties"]["registration_user_accesses"]["description"] = (
-            "Registration user accesses are used to define registration specific permissions."
+            "Registration user accesses are used to define registration specific permissions."  # noqa: E501
         )
 
         if settings.WEB_STORE_INTEGRATION_ENABLED:
             result["properties"]["registration_price_groups"]["description"] = (
-                "Customer group selections that should be available when signing up to this "
-                "registration. When at least one customer group selection exists, the registration "
+                "Customer group selections that should be available when signing up to this "  # noqa: E501
+                "registration. When at least one customer group selection exists, the registration "  # noqa: E501
                 "is considered to require a payment."
             )
 
@@ -304,9 +304,9 @@ class RegistrationPriceGroupSerializerExtension(OpenApiSerializerExtension):
             "Unique identifier for this registration customer group."
         )
         result["properties"]["price_group"]["description"] = (
-            "The organization-level customer group whose instance this registration customer "
-            "group is. Gives the name / label for the registration customer group and determines "
-            "if the customer group is free. Price will be forced to 0 if the customer group is "
+            "The organization-level customer group whose instance this registration customer "  # noqa: E501
+            "group is. Gives the name / label for the registration customer group and determines "  # noqa: E501
+            "if the customer group is free. Price will be forced to 0 if the customer group is "  # noqa: E501
             "free."
         )
         result["properties"]["price"]["description"] = (
@@ -320,7 +320,7 @@ class RegistrationPriceGroupSerializerExtension(OpenApiSerializerExtension):
             )
         }
         result["properties"]["price_without_vat"]["description"] = (
-            "Price of this customer group excluding VAT. Calculated automatically based on "
+            "Price of this customer group excluding VAT. Calculated automatically based on "  # noqa: E501
             "<code>price</code> and <code>vat_percentage</code>."
         )
         result["properties"]["vat"]["description"] = (
@@ -338,7 +338,7 @@ class RegistrationUserAccessSerializerExtension(OpenApiSerializerExtension):
         result = super().map_serializer(auto_schema, direction)
 
         result["description"] = (
-            "List of email addresses which has registration specific permissions. Substitute "
+            "List of email addresses which has registration specific permissions. Substitute "  # noqa: E501
             "user permissions are also given through a registration user access."
         )
 
@@ -346,20 +346,20 @@ class RegistrationUserAccessSerializerExtension(OpenApiSerializerExtension):
             "Unique identifier for this registration user access."
         )
         result["properties"]["email"]["description"] = (
-            "Email address of the registration user. Unique per registration. Must end with one "
+            "Email address of the registration user. Unique per registration. Must end with one "  # noqa: E501
             "of the allowed domain names if <code>is_substitute_user<code> is set to "
             '<code>true</code> (by default, only "hel.fi" domain is allowed).'
         )
 
         result["properties"]["language"]["description"] = (
-            "The registration user's service language that should be used in invitation emails."
+            "The registration user's service language that should be used in invitation emails."  # noqa: E501
         )
         result["properties"]["language"]["example"] = "fi"
 
         result["properties"]["is_substitute_user"]["description"] = (
-            "Determines if the registration user is a substitute user for the creator of the "
-            "registration. A substitute user has full administration rights for the registration. "
-            "The registration user's email must end with an allowed domain name to be able to set "
+            "Determines if the registration user is a substitute user for the creator of the "  # noqa: E501
+            "registration. A substitute user has full administration rights for the registration. "  # noqa: E501
+            "The registration user's email must end with an allowed domain name to be able to set "  # noqa: E501
             'this to <code>true</code>. By default, only "hel.fi" domain is allowed.'
         )
 
@@ -426,7 +426,7 @@ class SignUpSerializerExtension(OpenApiSerializerExtension):
         result = super().map_serializer(auto_schema, direction)
 
         result["description"] = (
-            "Signups are used as attendees for registrations. An attendee can have their own "
+            "Signups are used as attendees for registrations. An attendee can have their own "  # noqa: E501
             "contact person information if they are not part of a group."
         )
 
@@ -450,7 +450,7 @@ class SignUpSerializerExtension(OpenApiSerializerExtension):
             'Status of the attendee. Options are "attending" and "waitlisted".'
         )
         result["properties"]["presence_status"]["description"] = (
-            'Event presence status of the attendee. Options are "present" and "not_present".'
+            'Event presence status of the attendee. Options are "present" and "not_present".'  # noqa: E501
         )
         result["properties"]["registration"]["description"] = (
             "Id of the registration to which this signup is related."
@@ -487,7 +487,7 @@ class SignUpContactPersonSerializerExtension(OpenApiSerializerExtension):
         result = super().map_serializer(auto_schema, direction)
 
         result["description"] = (
-            "Provides contact information for an attendee or an attendee group. In case of a "
+            "Provides contact information for an attendee or an attendee group. In case of a "  # noqa: E501
             "group, the information will be shared for the whole group."
         )
 
@@ -567,7 +567,7 @@ class SignUpGroupSerializerExtension(OpenApiSerializerExtension):
             "URL reference to the user that created this signup group (user endpoint)."
         )
         result["properties"]["last_modified_by"]["description"] = (
-            "URL reference to the user that last modified this signup group (user endpoint)."
+            "URL reference to the user that last modified this signup group (user endpoint)."  # noqa: E501
         )
 
         result["required"].remove("anonymization_time")
@@ -589,7 +589,7 @@ class SignUpPriceGroupSerializerExtension(OpenApiSerializerExtension):
         result = super().map_serializer(auto_schema, direction)
 
         result["description"] = (
-            "Customer group selection for an attendee. Determines the price of the signup."
+            "Customer group selection for an attendee. Determines the price of the signup."  # noqa: E501
         )
 
         result["properties"]["registration_price_group"]["description"] = (
@@ -606,7 +606,7 @@ class SignUpPaymentSerializerExtension(OpenApiSerializerExtension):
         result = super().map_serializer(auto_schema, direction)
 
         result["description"] = (
-            "A payment created for a signup or a signup group using the web store integration. "
+            "A payment created for a signup or a signup group using the web store integration. "  # noqa: E501
             "A signup is confirmed only when the payment is paid."
         )
 
@@ -614,15 +614,15 @@ class SignUpPaymentSerializerExtension(OpenApiSerializerExtension):
             "Unique identifier for this payment."
         )
         result["properties"]["external_order_id"]["description"] = (
-            "Unique identified for this payment in the Talpa web store. Returned by the web "
+            "Unique identified for this payment in the Talpa web store. Returned by the web "  # noqa: E501
             "store after the payment has been successfully created."
         )
         result["properties"]["checkout_url"]["description"] = (
-            "URL to Talpa web store's checkout UI. Does not require the user to be logged in. "
-            "The payment can be paid using either checkout_url or logged_in_checkout_url."
+            "URL to Talpa web store's checkout UI. Does not require the user to be logged in. "  # noqa: E501
+            "The payment can be paid using either checkout_url or logged_in_checkout_url."  # noqa: E501
         )
         result["properties"]["logged_in_checkout_url"]["description"] = (
-            "URL to Talpa web store's checkout UI. Requires the user to be logged in. The "
+            "URL to Talpa web store's checkout UI. Requires the user to be logged in. The "  # noqa: E501
             "payment can be paid using either checkout_url or logged_in_checkout_url."
         )
         result["properties"]["amount"]["description"] = (

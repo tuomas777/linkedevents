@@ -17,7 +17,7 @@ class KeywordMatcher(object):
         if language:
             if language not in used_langs.keys():
                 raise ParseError(
-                    f"{language} not supported. Supported options are: {' '.join(used_langs.keys())}"
+                    f"{language} not supported. Supported options are: {' '.join(used_langs.keys())}"  # noqa: E501
                 )
             languages = [language]
         else:
@@ -36,8 +36,8 @@ class KeywordMatcher(object):
                 .order_by("-similarity")  # noqa E124
                 .first()
             )  # noqa E124
-            # storing the result in a dictionary of the following structure {similarity: label}
-            # in the edge case when similarity is the same for two different languages the label will be
+            # storing the result in a dictionary of the following structure {similarity: label}  # noqa: E501
+            # in the edge case when similarity is the same for two different languages the label will be  # noqa: E501
             # overwritten, which is not big deal as we don't have a way to select
             # between the two anyway.
             if label:
@@ -51,9 +51,9 @@ class KeywordMatcher(object):
             return None
 
     def label_match(self, text, language=None):
-        # Let's use Postgres full-text search to find a label matched by lexeme and rank the results with
-        # TrigramSimilarity as fulltext SearchRank is not suitable for ranking matched individual words. If no language
-        # is passed we cycle through all options as specified in FULLTEXT_SEARCH_LANGUAGES and select the best match
+        # Let's use Postgres full-text search to find a label matched by lexeme and rank the results with  # noqa: E501
+        # TrigramSimilarity as fulltext SearchRank is not suitable for ranking matched individual words. If no language  # noqa: E501
+        # is passed we cycle through all options as specified in FULLTEXT_SEARCH_LANGUAGES and select the best match  # noqa: E501
         # according to similarity.
         label = self.full_text_matching(text, language)
         if label:

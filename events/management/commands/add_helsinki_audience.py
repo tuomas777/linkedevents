@@ -58,7 +58,7 @@ NEW_SOTE_KEYWORDS_DATA = [
 
 
 class Command(BaseCommand):
-    help = "Creates SOTE keywords and Helsinki audience keyword set and adds YSO audience keywords to events."
+    help = "Creates SOTE keywords and Helsinki audience keyword set and adds YSO audience keywords to events."  # noqa: E501
 
     @lru_cache()  # noqa: B019
     def get_keyword_obj(self, keyword_id):
@@ -151,7 +151,7 @@ class Command(BaseCommand):
                         )
 
     def handle(self, *args, **options):
-        # Helsinki data source must be created if missing. Note that it is not necessarily the system data source.
+        # Helsinki data source must be created if missing. Note that it is not necessarily the system data source.  # noqa: E501
         # If we are creating it, it *may* still be the system data source, so it
         # must be user editable!
         helsinki_data_source_defaults = {

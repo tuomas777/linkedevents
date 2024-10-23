@@ -67,7 +67,7 @@ class TprekImporter(Importer):
                 logger.warning(
                     "Tprek deleted location %s (%s) with events."
                     "No unambiguous replacement was found. "
-                    "Please look for a replacement location and save it in the replaced_by field. "
+                    "Please look for a replacement location and save it in the replaced_by field. "  # noqa: E501
                     "Until then, events will stay mapped to the deleted location."
                     % (obj.id, str(obj))
                 )

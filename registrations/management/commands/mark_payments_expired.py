@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     help = (
-        "Mark signup payments expired if their expires_at timestamp has been exceeded and no "
+        "Mark signup payments expired if their expires_at timestamp has been exceeded and no "  # noqa: E501
         "payment exists in the Talpa web store for them."
     )
 
@@ -116,14 +116,14 @@ class Command(BaseCommand):
                         # Request failed => log error and skip processing for this
                         # payment.
                         logger.error(
-                            f"mark_payments_expired: an error occurred while fetching payment "
+                            f"mark_payments_expired: an error occurred while fetching payment "  # noqa: E501
                             f"from the Talpa API (payment ID: {payment.pk}, order ID: "
-                            f"{payment.external_order_id}, response.status_code: {status_code})"
+                            f"{payment.external_order_id}, response.status_code: {status_code})"  # noqa: E501
                         )
                         continue
 
                 if resp_json.get("status") == WebStorePaymentStatus.PAID.value:
-                    # Payment exists and is paid => mark our payment as paid and notify contact
+                    # Payment exists and is paid => mark our payment as paid and notify contact  # noqa: E501
                     # person.
                     self._handle_payment_paid(payment)
                 elif resp_json.get("status") == WebStorePaymentStatus.CANCELLED.value:
@@ -140,7 +140,7 @@ class Command(BaseCommand):
                     )
                     > payment.expires_at
                 ):
-                    # Payer has entered the payment phase after expiry datetime and might make a
+                    # Payer has entered the payment phase after expiry datetime and might make a  # noqa: E501
                     # payment => check again later.
                     pass
                 else:

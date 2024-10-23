@@ -25,7 +25,7 @@ YSO_DEPRECATED_MAPS = {
     "yso:p21160": "yso:p8113",
     # Suvilahti -> Suvilahti (Helsinki), missing YSO replacement
     "yso:p27158": "yso:p508707",
-    "yso:p21315": "yso:p508301",  # Marskenttä -> Campus Martius, missing YSO replacement
+    "yso:p21315": "yso:p508301",  # Marskenttä -> Campus Martius, missing YSO replacement  # noqa: E501
 }
 
 # yso keywords for the importers to automatically include in the audience field as well

@@ -258,7 +258,7 @@ def get_user_data_source_and_organization_from_request(
         if not publisher:
             raise PermissionDenied(_("Data source doesn't belong to any organization"))
     else:
-        # objects *created* by api are marked coming from the system data source unless api_key is provided
+        # objects *created* by api are marked coming from the system data source unless api_key is provided  # noqa: E501
         # we must optionally create the system data source here, as the settings
         # may have changed at any time
         system_data_source_defaults = {

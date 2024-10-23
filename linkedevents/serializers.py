@@ -92,7 +92,7 @@ class TranslatedModelSerializer(serializers.ModelSerializer):
             if not isinstance(obj, dict):
                 raise serializers.ValidationError(
                     {
-                        field_name: "This field is a translated field. Instead of a string,"
+                        field_name: "This field is a translated field. Instead of a string,"  # noqa: E501
                         " you must supply an object with strings corresponding"
                         " to desired language ids."
                     }
@@ -351,7 +351,7 @@ class LinkedEventsSerializer(TranslatedModelSerializer, MPTTModelSerializer):
                 _(
                     "Setting %(field)s to %(given)s "
                     "is not allowed for this user. The %(field)s "
-                    "must be left blank or set to %(required)s or any other organization "
+                    "must be left blank or set to %(required)s or any other organization "  # noqa: E501
                     "the user belongs to."
                 )
                 % {
@@ -374,7 +374,7 @@ class LinkedEventsSerializer(TranslatedModelSerializer, MPTTModelSerializer):
             )
 
             if value.replaced_by:
-                # for replaced organizations, we automatically update to the current organization
+                # for replaced organizations, we automatically update to the current organization  # noqa: E501
                 # even if the POST uses the old id
                 return value.replaced_by
 

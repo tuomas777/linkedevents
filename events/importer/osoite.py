@@ -76,14 +76,14 @@ class OsoiteImporter(Importer):
         # we won't stand idly by and watch kymp delete used addresses willy-nilly
         # without raising a ruckus!
         if obj.events.count() > 0:
-            # sadly, addresses are identified by, well, address alone. Therefore we have no other data that
+            # sadly, addresses are identified by, well, address alone. Therefore we have no other data that  # noqa: E501
             # could be used to find out if there is a replacement location.
             logger.warning(
-                "Osoiteluettelo deleted address %s (%s) with events. This means that the street in "
-                "question has probably changed address numbers, as they do. Please check all "
-                "addresses on the street for events and save any new address numbers in the "
-                "replaced_by field. If several addresses have changed on the street, you may have to "
-                "manually move the events instead. Until then, events will stay mapped to the old "
+                "Osoiteluettelo deleted address %s (%s) with events. This means that the street in "  # noqa: E501
+                "question has probably changed address numbers, as they do. Please check all "  # noqa: E501
+                "addresses on the street for events and save any new address numbers in the "  # noqa: E501
+                "replaced_by field. If several addresses have changed on the street, you may have to "  # noqa: E501
+                "manually move the events instead. Until then, events will stay mapped to the old "  # noqa: E501
                 "addresses." % (obj.id, str(obj))
             )
         return True
@@ -152,7 +152,7 @@ class OsoiteImporter(Importer):
         if obj.deleted:
             obj.deleted = False
             # address has been reinstated, hip hip hooray!
-            # there's no way we can find any events from other addresses that should now be in this address
+            # there's no way we can find any events from other addresses that should now be in this address  # noqa: E501
             # so we cannot do address replace here (the way we do with tprek units)
             obj._changed_fields.append("deleted")
             obj._changed = True

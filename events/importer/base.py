@@ -513,7 +513,7 @@ class Importer(object):
                 for link in new_links:
                     if len(link.url) > 200:
                         logger.error(
-                            f"{obj} required external link of length {len(link.url)}, current limit 200"
+                            f"{obj} required external link of length {len(link.url)}, current limit 200"  # noqa: E501
                         )
                         continue
                     new_link_objects.append(
@@ -567,7 +567,7 @@ class Importer(object):
             self._set_field(obj, "event_status", status)
 
         if obj._changed or obj._created:
-            # Finally, we must save the whole object, even when only related fields changed.
+            # Finally, we must save the whole object, even when only related fields changed.  # noqa: E501
             # Also, we want to log all that happened.
             try:
                 obj.save()

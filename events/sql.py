@@ -27,7 +27,7 @@ def count_events_for_keywords(keyword_ids=(), all=False):
               SELECT keyword_id, event_id FROM events_event_audience WHERE keyword_id IN %s
             ) t
             GROUP BY t.keyword_id;
-            """,
+            """,  # noqa: E501
                 [keyword_ids, keyword_ids],
             )
         elif all:

@@ -71,7 +71,7 @@ LOCATION_TPREK_MAP = {
     "leikkipuisto lampi": "57117",
 }
 
-# "Etäosallistuminen" is also mapped to our new fancy "Tapahtuma vain internetissä." location
+# "Etäosallistuminen" is also mapped to our new fancy "Tapahtuma vain internetissä." location  # noqa: E501
 INTERNET_LOCATION_ID = settings.SYSTEM_DATA_SOURCE_ID + ":internet"
 
 ADDRESS_TPREK_MAP = {
@@ -135,7 +135,7 @@ CATEGORY_TYPES_TO_IGNORE = [
     3,
 ]
 
-# Events having one of these categories are courses - they are excluded when importing events
+# Events having one of these categories are courses - they are excluded when importing events  # noqa: E501
 # and only they are included when importing courses.
 COURSE_CATEGORIES = {
     70,
@@ -450,7 +450,7 @@ class KulkeImporter(Importer):
         if tprek_id:
             event["location"]["id"] = self.tprek_by_id[tprek_id]
         elif Keyword.objects.get(id="yso:p26626") in event["keywords"]:
-            # "Etäosallistuminen" is also mapped to our new fancy "Tapahtuma vain internetissä." location
+            # "Etäosallistuminen" is also mapped to our new fancy "Tapahtuma vain internetissä." location  # noqa: E501
             event["location"]["id"] = INTERNET_LOCATION_ID
         elif "virtuaalinen" in loc_name.lower():
             event["location"]["id"] = INTERNET_LOCATION_ID
@@ -885,7 +885,7 @@ class KulkeImporter(Importer):
 
         if n_super_events > 1:
             logger.error(
-                "Error: the superevent has an ambiguous aggregate group.\nAggregate ids: {}, group: {}".format(
+                "Error: the superevent has an ambiguous aggregate group.\nAggregate ids: {}, group: {}".format(  # noqa: E501
                     superevent_aggregates.values_list("id", flat=True), recurring_group
                 )
             )
@@ -894,7 +894,7 @@ class KulkeImporter(Importer):
         events = list(Event.objects.filter(id__in=kulke_ids))
         if len(events) != len(recurring_group):
             logger.warning(
-                "Not all events referenced in the group were found in the database. Group: %s - Events: %s",
+                "Not all events referenced in the group were found in the database. Group: %s - Events: %s",  # noqa: E501
                 recurring_group,
                 set(e.id for e in events),
             )
@@ -923,8 +923,8 @@ class KulkeImporter(Importer):
         else:
             aggregate = superevent_aggregates.first()
             if len(events) < 2:
-                # The imported event is not part of an aggregate but one was found it in the db.
-                # Remove the super event. This is the only case when an event is removed from
+                # The imported event is not part of an aggregate but one was found it in the db.  # noqa: E501
+                # Remove the super event. This is the only case when an event is removed from  # noqa: E501
                 # a recurring aggregate.
                 aggregate.super_event.soft_delete()
                 aggregate.super_event.sub_events.all().update(super_event=None)
@@ -1105,10 +1105,10 @@ class KulkeImporter(Importer):
 
         doc.add_heading("Kulke Importer")
         doc.add_paragraph(
-            "When importing data from Elis to Linked Events, some mappings and transformations are "
-            "applied, and there is some special logic regarding the creation of super events. "
-            "This document covers these aspects of the importer with the target audience being someone "
-            "who creates events and needs to understand how the event will be represented in LE."
+            "When importing data from Elis to Linked Events, some mappings and transformations are "  # noqa: E501
+            "applied, and there is some special logic regarding the creation of super events. "  # noqa: E501
+            "This document covers these aspects of the importer with the target audience being someone "  # noqa: E501
+            "who creates events and needs to understand how the event will be represented in LE."  # noqa: E501
         )
 
         # Section about field mapping
@@ -1137,7 +1137,7 @@ class KulkeImporter(Importer):
                 """
             Some of the fields in Linked Events are different from Elis, so some mapping needs to be performed
             when importing events from Elis. The following is a non-exhaustive list of these mappings.
-            """
+            """  # noqa: E501
             )
         )
         doc.add_table(
@@ -1175,7 +1175,7 @@ class KulkeImporter(Importer):
 
         If there are inconsistent references, e.g. A refers to B and C, but B only refers to A, a warning will be logged
         and the super event construction may be unsuccessful.
-        """
+        """  # noqa: E501
             )
         )
 
@@ -1209,7 +1209,7 @@ class KulkeImporter(Importer):
         first event, as determined by start time.
 
         The subset of keywords and audiences that are common to all member events will be attached to the super event.
-        """
+        """  # noqa: E501
             )
         )
 
@@ -1249,7 +1249,7 @@ class KulkeImporter(Importer):
         If the place is not found using the location name, finding the location using the address is attempted,
         in both Finnish and Swedish. These addresses are mapped to the following cultural centers, which in
         turn are mapped to the Tprek IDs shown above.
-        """
+        """  # noqa: E501
             )
         )
 
@@ -1293,7 +1293,7 @@ class KulkeImporter(Importer):
     def _md_doc_courses(doc):
         doc.add_heading("Courses", level=3)
         doc.add_paragraph(
-            "Any event that has at least one of these categories is considered to be a course."
+            "Any event that has at least one of these categories is considered to be a course."  # noqa: E501
         )
         id_to_name = {
             kw_id: name
@@ -1321,11 +1321,11 @@ class KulkeImporter(Importer):
         For some categories, this is done using a manual mapping, but for the remaining categories,
         the importer will attempt to perform a keyword match to determine the keywords.
         The mapping, both manual and automatic, is shown in the table below.
-        """
+        """  # noqa: E501
             )
         )
 
-        # At doc generation time we don't have access to the category type info, so this is
+        # At doc generation time we don't have access to the category type info, so this is  # noqa: E501
         # a dirty workaround to filter categories with these types out of the table
         categories_of_ignored_type = [36, 37, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]
 

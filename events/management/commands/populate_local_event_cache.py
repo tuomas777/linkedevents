@@ -11,9 +11,9 @@ from linkedevents.settings import MUNIGEO_MUNI
 
 class Command(BaseCommand):
     help = (
-        "Update local and internet-based ongoing and upcoming events cache. Note that cache has to be set up and\
-           its memory limits will probably need adjustment. In case memcached is used, check -m and\
-           -I parameters."
+        "Update local and internet-based ongoing and upcoming events cache. Note that "
+        "cache has to be set up and its memory limits will probably need adjustment. "
+        "In case memcached is used, check -m and -I parameters."
     )
 
     def handle(self, *args, **options):

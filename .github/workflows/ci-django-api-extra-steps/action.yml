@@ -1,0 +1,9 @@
+name: ci-django-api-extra-steps
+description: Extra CI steps
+runs:
+  using: composite
+  steps:
+    - name: Check OpenAPI schema
+      shell: bash
+      run: |
+        python manage.py spectacular --lang en --validate --fail-on-warn --api-version v1

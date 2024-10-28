@@ -12,5 +12,5 @@ jobs:
       python-version: 3.9
       database-type: postgis
       additional-checks: |
-        echo "Check OpenAPI schema"
         python manage.py spectacular --lang en --validate --fail-on-warn --api-version v1
+        python manage.py makemigrations --dry-run --check

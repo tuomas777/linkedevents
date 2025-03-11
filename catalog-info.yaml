@@ -4,6 +4,7 @@ metadata:
   name: linkedevents
   annotations:
     github.com/project-slug: City-of-Helsinki/linkedevents
+    janus-idp.io/topology: 'enabled'
 spec:
   type: other
   lifecycle: unknown

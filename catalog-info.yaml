@@ -6,6 +6,6 @@ metadata:
     github.com/project-slug: City-of-Helsinki/linkedevents
     backstage.io/topology: 'enabled'
 spec:
-  type: other
+  type: other2
   lifecycle: unknown
   owner: platta

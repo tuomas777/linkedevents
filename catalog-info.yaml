@@ -21,7 +21,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: linked-events
+  name: linkedevents
   title: Linked Events backend
   annotations:
     github.com/project-slug: City-of-Helsinki/linkedevents

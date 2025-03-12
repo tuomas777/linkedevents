@@ -2,7 +2,6 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: linkedevents-api
-  title: Linked Events API
   description: Linked Events API
 spec:
   type: openapi

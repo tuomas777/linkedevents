@@ -1,20 +1,4 @@
 apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: linkedevents
-  annotations:
-    github.com/project-slug: City-of-Helsinki/linkedevents
-    backstage.io/topology: 'enabled'
-spec:
-  type: other
-  lifecycle: unknown
-  owner: platta
-  providesApis:
-    - linkedevents-api
-
----
-
-apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: linkedevents-api
@@ -30,3 +14,19 @@ spec:
       version: 1.0.0
     servers:
       - url: 'https://api.yourdomain.com/v1'
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: linkedevents
+  annotations:
+    github.com/project-slug: City-of-Helsinki/linkedevents
+    backstage.io/topology: 'enabled'
+spec:
+  type: other
+  lifecycle: unknown
+  owner: platta
+  providesApis:
+    - linkedevents-api

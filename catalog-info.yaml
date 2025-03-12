@@ -2,6 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: linkedevents-api
+  title: Linked Events API
   description: Linked Events API
 spec:
   type: openapi
@@ -20,7 +21,8 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: Linked Events backend
+  name: linked-events
+  title: Linked Events backend
   annotations:
     github.com/project-slug: City-of-Helsinki/linkedevents
     backstage.io/topology: 'enabled'

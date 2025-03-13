@@ -25,7 +25,7 @@ metadata:
   annotations:
     github.com/project-slug: City-of-Helsinki/linkedevents
     dev.azure.com/project-repo: linkedevents/linkedevents-pipelines
-    quay.io/repository-slug: devops/linkedevents
+    quay.io/repository-slug: hki-kanslia-linkedevents/linkedevents-api
     backstage.io/kubernetes-id: linkedevents
     backstage.io/techdocs-ref: dir:.
 spec:

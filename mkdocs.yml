@@ -1,0 +1,5 @@
+site_name: 'Linked Events Documentation'
+nav:
+  - Home: README.md
+plugins:
+  - techdocs-core

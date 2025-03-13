@@ -25,6 +25,7 @@ metadata:
   annotations:
     github.com/project-slug: City-of-Helsinki/linkedevents
     backstage.io/topology: 'enabled'
+    dev.azure.com/project-repo: City-of-Helsinki/linkedevents
 spec:
   type: other
   lifecycle: unknown

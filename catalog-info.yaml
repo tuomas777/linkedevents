@@ -25,6 +25,9 @@ metadata:
   annotations:
     github.com/project-slug: City-of-Helsinki/linkedevents
     dev.azure.com/project-repo: linkedevents/linkedevents-pipelines
+    quay.io/repository-slug: devops/linkedevents
+    backstage.io/kubernetes-id: linkedevents
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: other
   lifecycle: unknown

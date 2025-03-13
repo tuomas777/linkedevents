@@ -24,8 +24,7 @@ metadata:
   title: Linked Events backend
   annotations:
     github.com/project-slug: City-of-Helsinki/linkedevents
-    backstage.io/topology: 'enabled'
-    dev.azure.com/project-repo: City-of-Helsinki/linkedevents
+    dev.azure.com/project-repo: linkedevents/linkedevents-pipelines
 spec:
   type: other
   lifecycle: unknown

@@ -1,4 +1,15 @@
 apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: linkedevents-system
+  title: Linked Events
+  description: Event management system
+spec:
+  owner: platta
+
+---
+
+apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: linkedevents-api
@@ -7,6 +18,7 @@ spec:
   type: openapi
   lifecycle: unknown
   owner: platta
+  system: linkedevents-system
   definition: |
     openapi: 3.0.0
     info:
@@ -34,3 +46,5 @@ spec:
   owner: platta
   providesApis:
     - linkedevents-api
+  system: linkedevents-system
+

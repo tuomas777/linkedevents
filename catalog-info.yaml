@@ -34,7 +34,7 @@ kind: Component
 metadata:
   name: linkedevents
   title: Linked Events backend
-  description Linked Events backend
+  description: Linked Events backend
   tags:
     - backend
   annotations:

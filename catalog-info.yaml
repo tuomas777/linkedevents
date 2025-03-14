@@ -41,7 +41,7 @@ metadata:
     github.com/project-slug: City-of-Helsinki/linkedevents
     dev.azure.com/project-repo: linkedevents/linkedevents-pipelines
     quay.io/repository-slug: hki-kanslia-linkedevents/linkedevents-api
-    backstage.io/kubernetes-label-selector: 'app=linkedevents'
+    backstage.io/kubernetes-label-selector: 'app=linkedevents,app.kubernetes.io/component=linkedevents-api'
     backstage.io/techdocs-ref: dir:.
 spec:
   type: other

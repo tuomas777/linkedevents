@@ -34,6 +34,9 @@ kind: Component
 metadata:
   name: linkedevents
   title: Linked Events backend
+  description Linked Events backend
+  tags:
+    - backend
   annotations:
     github.com/project-slug: City-of-Helsinki/linkedevents
     dev.azure.com/project-repo: linkedevents/linkedevents-pipelines

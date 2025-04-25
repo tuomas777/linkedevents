@@ -44,6 +44,8 @@ metadata:
     backstage.io/kubernetes-id: linkedevents
     backstage.io/techdocs-ref: dir:.
     sentry.io/project-slug: linkedevents-api
+    sonarqube.org/project-key: City-of-Helsinki_linkedevents
+    jira/project-key: LINK
 spec:
   type: other
   lifecycle: unknown

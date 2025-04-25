@@ -43,7 +43,7 @@ metadata:
     quay.io/repository-slug: hki-kanslia-linkedevents/linkedevents-api
     backstage.io/kubernetes-id: linkedevents
     backstage.io/techdocs-ref: dir:.
-    sentry.io/project-slug: helsinkicity/linkedevents
+    sentry.io/project-slug: linkedevents
 spec:
   type: other
   lifecycle: unknown

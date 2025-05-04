@@ -53,4 +53,19 @@ spec:
   providesApis:
     - linkedevents-api
   system: linkedevents-system
+  dependsOn:
+    - resource:kulke
 
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: kulke
+  title: External Kulttuurikeskus Elis service
+  description: The Kulttuurikeskus Elis system is an external system that provides event data
+    for cultural events. The events are fetched periodically to Linked Events.
+  tags:
+    - external
+spec:
+  type: external-service

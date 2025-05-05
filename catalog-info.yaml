@@ -124,6 +124,8 @@ spec:
   type: external-service
   owner: external-systems
 
+---
+
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:

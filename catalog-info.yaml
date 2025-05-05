@@ -30,22 +30,6 @@ spec:
 ---
 
 apiVersion: backstage.io/v1alpha1
-kind: Resource
-metadata:
-  name: kulke
-  title: External Kulttuurikeskus Elis service
-  description: |
-    The Kulttuurikeskus Elis system is an external system that provides event data
-    for cultural events. The events are fetched periodically to Linked Events.
-  tags:
-    - external
-spec:
-  type: external-service
-  owner: kulttuurikeskus
-
----
-
-apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: linkedevents
@@ -71,3 +55,81 @@ spec:
   system: linkedevents-system
   dependsOn:
     - resource:default/kulke
+    - resource:default/lippupiste
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: kulke
+  title: External Kulttuurikeskus Elis service
+  description: |
+    The Kulttuurikeskus Elis system is an external system that provides event data
+    for cultural events. The events are fetched periodically to Linked Events.
+  tags:
+    - external
+spec:
+  type: external-service
+  owner: external-systems
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: lippupiste
+  title: External Lippupiste service
+  description: |
+    The Lippupiste system is an external system that provides ticketing and event data
+    for cultural events. The events are fetched periodically to Linked Events.
+  tags:
+    - external
+spec:
+  type: external-service
+  owner: external-systems
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: kulke
+  title: External Kulttuurikeskus Elis service
+  description: |
+    The Kulttuurikeskus Elis system is an external system that provides event data
+    for cultural events. The events are fetched periodically to Linked Events.
+  tags:
+    - external
+spec:
+  type: external-service
+  owner: external-systems
+
+---
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: espoo
+  title: External Espoo Linked Events service
+  description: |
+    The Espoo Linked Events system is an external system that provides event data
+    for cultural events. The events are fetched periodically to Linked Events.
+  tags:
+    - external
+  link:
+    - title: Espoo Linked Events API URL
+      url: https://api.espoo.fi/events/
+spec:
+  type: external-service
+  owner: external-systems
+
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: external-systems
+  description: External systems not owned by internal teams
+spec:
+  type: team
+  profile:
+    displayName: External Systems

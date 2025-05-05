@@ -56,6 +56,7 @@ spec:
   dependsOn:
     - resource:default/kulke
     - resource:default/lippupiste
+    - resource:default/espoo-linkedevents
 
 ---
 
@@ -110,7 +111,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: espoo
+  name: espoo-linkedevents
   title: External Espoo Linked Events service
   description: |
     The Espoo Linked Events system is an external system that provides event data

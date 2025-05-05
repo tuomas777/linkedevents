@@ -41,6 +41,7 @@ metadata:
     - external
 spec:
   type: external-service
+  owner: kulttuurikeskus
 
 ---
 

@@ -4,6 +4,9 @@ metadata:
   name: linkedevents-system
   title: Linked Events
   description: Event management system
+  links:
+    - title: Confluence documentation
+      url: https://helsinkisolutionoffice.atlassian.net/wiki/spaces/KAN/pages/951123993/Linked+Events
 spec:
   owner: platta
 
@@ -46,6 +49,9 @@ metadata:
     sentry.io/project-slug: linkedevents-api
     sonarqube.org/project-key: City-of-Helsinki_linkedevents
     jira/project-key: LINK
+  links:
+    - title: Confluence documentation
+      url: https://helsinkisolutionoffice.atlassian.net/wiki/spaces/KAN/pages/951123993/Linked+Events
 spec:
   type: other
   lifecycle: unknown
@@ -118,7 +124,7 @@ metadata:
     for cultural events. The events are fetched periodically to Linked Events.
   tags:
     - external
-  link:
+  links:
     - title: Espoo Linked Events API URL
       url: https://api.espoo.fi/events/
 spec:

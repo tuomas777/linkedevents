@@ -115,7 +115,7 @@ python-jose==3.3.0
     # via
     #   -c requirements.txt
     #   -r requirements-dev.in
-requests==2.32.3
+requests==2.32.4
     # via
     #   -c requirements.txt
     #   django-anymail

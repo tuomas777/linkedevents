@@ -78,6 +78,7 @@ packaging==24.1
     #   build
     #   pytest
     #   pytest-factoryboy
+    #   wheel
 pip-tools==7.4.1
     # via -r requirements-dev.in
 pluggy==1.5.0
@@ -159,7 +160,7 @@ urllib3==1.26.20
     #   requests
 werkzeug==3.0.6
     # via -r requirements-dev.in
-wheel==0.44.0
+wheel==0.46.2
     # via pip-tools
 zipp==3.20.2
     # via
